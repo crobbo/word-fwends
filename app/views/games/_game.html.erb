@@ -1,0 +1,17 @@
+<div class="flex mt-10">
+    <div class="hidden md:block md:w-1/5 px-10 mt-10">
+    </div>
+    <div class="w-full md:w-3/5 max-w-md grid grid-cols-5 grid-rows-6 gap-2 mx-auto">
+        <% game.state.length.times do |i| %>
+            <div id="board_<%= i %>" class="border border-solid border-slate-800 w-20 h-20"><%= game.state[i].chr %></div>
+        <% end %>
+
+        <% (30 - game.state.length).times do |i| %>
+            <div id="board_<%= (0 + game.state.length) + i %>" class="border border-solid border-slate-800 w-20 h-20"></div>
+        <% end %>
+    </div>
+    <div class="hidden md:block md:w-1/5">
+    </div>
+  </div>
+
+  
