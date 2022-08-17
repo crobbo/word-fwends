@@ -1,44 +1,44 @@
-<div class="flex mt-10">
+<div class="flex">
     <div class="hidden md:block md:w-1/5">
     </div>
     <div class=" flex flex-col w-full max-w-lg mx-auto">
         <% if @game.guesses.count > 0 %>
-                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count == 0 ] do %>
+                <%= tag.div id: "row", class: ["flex my-1 justify-center", "hidden": @game.guesses.count == 0 ] do %>
                     <% @game.guesses.count.times do |i| %>
                         <% if [0,1,2,3,4].include?(i) %>
                             <%= render "guess/guess", :guess => @game.guesses.all[i] %>
                         <% end %>
                     <% end %>
                 <% end %>    
-                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 6 ] do %>
+                <%= tag.div id: "row", class: ["flex my-1 h-16 justify-center", "hidden": @game.guesses.count < 6 ] do %>
                     <% @game.guesses.count.times do |i| %>
                         <% if [5,6,7,8,9].include?(i) %>
                             <%= render "guess/guess", :guess => @game.guesses.all[i] %>
                         <% end %>
                     <% end %>
                 <% end %>    
-                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 11 ] do %>
+                <%= tag.div id: "row", class: ["flex my-1 h-16 justify-center", "hidden": @game.guesses.count < 11 ] do %>
                     <% @game.guesses.count.times do |i| %>
                         <% if [10,11,12,13,14].include?(i)  %>
                             <%= render "guess/guess", :guess => @game.guesses.all[i] %>
                         <% end %>
                     <% end %>
                 <% end %> 
-                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 16 ] do %>
+                <%= tag.div id: "row", class: ["flex my-1 h-16 justify-center", "hidden": @game.guesses.count < 16 ] do %>
                     <% @game.guesses.count.times do |i| %>
                         <% if [15,16,17,18,19].include?(i) %>
                             <%= render "guess/guess", :guess => @game.guesses.all[i] %>
                         <% end %>
                     <% end %>
                 <% end %> 
-                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 21 ] do %>
+                <%= tag.div id: "row", class: ["flex my-1 h-16 justify-center", "hidden": @game.guesses.count < 21 ] do %>
                     <% @game.guesses.count.times do |i| %>
                         <% if [20,21,22,23,24].include?(i)  %>
                             <%= render "guess/guess", :guess => @game.guesses.all[i] %>
                         <% end %>
                     <% end %>
                 <% end %> 
-                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 26 ] do %>
+                <%= tag.div id: "row", class: ["flex my-1 h-16 justify-center", "hidden": @game.guesses.count < 26 ] do %>
                     <% @game.guesses.count.times do |i| %>
                         <% if [25,26,27,28,29].include?(i) %>
                             <%= render "guess/guess", :guess => @game.guesses.all[i] %>
@@ -48,9 +48,9 @@
         <% end %>
         <% ((30 - @game.guesses.count) / 5).times do |row|%>
             <%= form_with model: @game, url:[@game, @guess], method: :post do |form| %>
-                <div id="row_ <%= row %>" class="flex my-1 h-20 justify-center">
+                <div id="row_ <%= row %>" class="flex my-1 h-16 justify-center">
                         <% 5.times do |col| %>
-                            <input class="flex justify-center items-center text-3xl bg-gray-100 border border-solid rounded border-slate-400 w-20 mx-1" type="text" name="value_<%=col%>" id="guess" autofocus>
+                            <input class="flex justify-center items-center text-3xl bg-gray-100 border border-solid rounded border-slate-400 w-16 mx-1" type="text" name="value_<%=col%>" id="guess" autofocus>
                         <% end %>
                 </div>
                 <%= form.submit "Submit", class: "hidden" %>

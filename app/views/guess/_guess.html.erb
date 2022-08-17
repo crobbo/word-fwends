@@ -1,3 +1,3 @@
-<%= tag.div class: ["flex justify-center items-center text-3xl border border-solid rounded border-slate-400 w-20 mx-1 uppercase", "bg-green-300": guess.result == 'match', "bg-orange-300": guess.result == 'occurs', "bg-gray-200": guess.result == 'miss'] do %>
+<%= tag.div class: ["flex justify-center items-center text-3xl border border-solid rounded border-slate-400 h-16 w-16 mx-1 uppercase", "bg-green-300": guess.result == 'match', "bg-orange-300": guess.result == 'occurs', "bg-gray-400": guess.result == 'miss'] do %>
     <%= guess.value %>
 <% end %> 

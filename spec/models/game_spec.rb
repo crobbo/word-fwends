@@ -194,4 +194,168 @@ RSpec.describe Game, type: :model do
       expect(game.over?).to eq(true)
     end
   end
+
+  context 'matches? method' do
+    it 'returns true if letter is a match' do
+      game = Game.create(word: 'apple', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'miss')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 2, result: 'match')
+      Guess.create(value: 'f', game_id: 1, col: 2, row: 2, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 3, row: 2, result: 'miss')
+      Guess.create(value: 'e', game_id: 1, col: 4, row: 2, result: 'occurs')
+      Guess.create(value: 'r', game_id: 1, col: 5, row: 2, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 2, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 3, row: 3, result: 'match')
+      Guess.create(value: 'l', game_id: 1, col: 4, row: 3, result: 'match')
+      Guess.create(value: 'e', game_id: 1, col: 5, row: 3, result: 'match')
+      expect(game.matches?('e')).to eq(true)
+    end
+
+    it 'returns true if letter is a match' do
+      game = Game.create(word: 'apple', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'miss')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 2, result: 'match')
+      Guess.create(value: 'f', game_id: 1, col: 2, row: 2, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 3, row: 2, result: 'miss')
+      Guess.create(value: 'e', game_id: 1, col: 4, row: 2, result: 'occurs')
+      Guess.create(value: 'r', game_id: 1, col: 5, row: 2, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 2, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 3, row: 3, result: 'match')
+      Guess.create(value: 'l', game_id: 1, col: 4, row: 3, result: 'match')
+      Guess.create(value: 'e', game_id: 1, col: 5, row: 3, result: 'match')
+      expect(game.matches?('a')).to eq(true)
+    end
+
+    it 'returns false if letter is not a match' do
+      game = Game.create(word: 'apple', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'miss')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 2, result: 'match')
+      Guess.create(value: 'f', game_id: 1, col: 2, row: 2, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 3, row: 2, result: 'miss')
+      Guess.create(value: 'e', game_id: 1, col: 4, row: 2, result: 'occurs')
+      Guess.create(value: 'r', game_id: 1, col: 5, row: 2, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 2, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 3, row: 3, result: 'match')
+      Guess.create(value: 'l', game_id: 1, col: 4, row: 3, result: 'match')
+      Guess.create(value: 'e', game_id: 1, col: 5, row: 3, result: 'match')
+      expect(game.matches?('z')).to eq(false)
+    end
+
+    it 'returns false if letter is not a match' do
+      game = Game.create(word: 'apple', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'miss')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 2, result: 'match')
+      Guess.create(value: 'f', game_id: 1, col: 2, row: 2, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 3, row: 2, result: 'miss')
+      Guess.create(value: 'e', game_id: 1, col: 4, row: 2, result: 'occurs')
+      Guess.create(value: 'r', game_id: 1, col: 5, row: 2, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 1, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 2, row: 3, result: 'match')
+      Guess.create(value: 'p', game_id: 1, col: 3, row: 3, result: 'match')
+      Guess.create(value: 'l', game_id: 1, col: 4, row: 3, result: 'match')
+      Guess.create(value: 'e', game_id: 1, col: 5, row: 3, result: 'match')
+      expect(game.matches?('y')).to eq(false)
+    end
+
+    it 'returns true if letter occurs' do
+      game = Game.create(word: 'apple', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'miss')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'a', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'miss')
+      expect(game.occurances?('a')).to eq(true)
+    end
+
+    it 'returns  true if letter is occurs' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.occurances?('s')).to eq(true)
+    end
+
+    it 'returns false if letter does not occurs' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.occurances?('f')).to eq(false)
+    end
+
+    it 'returns false if letter does not occurs' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.occurances?('h')).to eq(false)
+    end
+
+    it 'returns true if letter misses' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.misses?('h')).to eq(true)
+    end
+
+    it 'returns true if letter misses' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.misses?('f')).to eq(true)
+    end
+
+
+    it 'returns false if letter does not miss' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.misses?('s')).to eq(false)
+    end
+
+
+    it 'returns false if letter does not miss' do
+      game = Game.create(word: 'mists', id: 1)
+      Guess.create(value: 's', game_id: 1, col: 1, row: 1, result: 'occurs')
+      Guess.create(value: 'h', game_id: 1, col: 2, row: 1, result: 'miss')
+      Guess.create(value: 'i', game_id: 1, col: 3, row: 1, result: 'occurs')
+      Guess.create(value: 'f', game_id: 1, col: 4, row: 1, result: 'miss')
+      Guess.create(value: 't', game_id: 1, col: 5, row: 1, result: 'occurs')
+      expect(game.misses?('i')).to eq(false)
+    end
+  end
 end

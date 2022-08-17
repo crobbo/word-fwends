@@ -37,7 +37,7 @@ class Game < ApplicationRecord
     when 1
       if guess_total == 0
         'occurs'
-      else 
+      else
         'miss'
       end
     when 2
@@ -65,4 +65,16 @@ class Game < ApplicationRecord
     row = guesses.count / 5
     guesses.all.where("row == #{row} AND result == 'match' ").count == 5
   end
+
+  def matches?(letter)
+    guesses.all.where("value == '#{letter}' AND result == 'match'").count.positive?
+  end
+
+  def occurances?(letter)
+    guesses.all.where("value == '#{letter}' AND result == 'occurs'").count.positive?
+  end
+  
+  def misses?(letter)
+    guesses.all.where("value == '#{letter}' AND result == 'miss'").count.positive?
+  end  
 end
