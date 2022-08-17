@@ -1,9 +1,13 @@
-<h1 class="font-bold text-4xl">Games#show</h1>
+<div class="pt-20 text-center text-5xl font-bold">
+  <% if @game.over? %>
+    You Win!
+  <% end %>
+</div>
 
 <div id="<%= dom_id(@game) %>"> 
   <%= render "game", :game => @game %>
 </div>
 
-<div class="flex flex-col justify-center max-w-sm mx-auto mt-5">
-  <%= render "keyboard" %>
+<div class="max-w-xl mx-auto mt-5">
+  <%= render "keyboard", :game => @game %>
 </div>

@@ -1,60 +1,68 @@
 class Game < ApplicationRecord
-  has_many :guesses, foreign_key: "game_id", dependent: :destroy
+  has_many :guesses, foreign_key: 'game_id', dependent: :destroy
 
-  def guess!(letter)
-    self.state = self.state + letter
+  def random_word
+    Spicy::Proton.noun(min: 5, max: 5)
   end
 
-  def undo_guess!
-    self.state = self.state.chop
-  end
-
-  def current_guess
-    self.state.slice(-1)
-  end
-
-  # checks letter exising in word
-  def includes_letter?(letter)
-    self.word.include?(letter.downcase)
-  end
-
-  def letter_match?(letter)
-    letter.downcase == self.word.split(//)[return_index]
-  end
-
-  # returns index of last guess
-  def return_index
-    row = return_row(self.state.length)
-    if row == 1
-      self.state.length - 1
-    elsif row == 2
-      self.state.length - 6
-    elsif row == 3
-      self.state.length - 11
-    elsif row == 4
-      self.state.length - 16
-    elsif row == 5
-      self.state.length - 21
-    elsif row == 6
-      self.state.length - 26
+  def check_guess?(guess, index, row)
+    if check_exact_match?(guess, index)
+      'match'
+    elsif word.include?(guess)
+      check_partial_match(guess, row)
+    else
+      'miss'
     end
   end
 
-  # returns row no. of last guess
-  def return_row(num)
-    case num
-    when 0..5
-      1
-    when 6..10
-      2
-    when 11..15
-      3
-    when 16..20
-      4
-    when 21..25
-      5
-    when 26..30
-      6
+  def letter_count(guess)
+    count = 0
+    word.each_char { |letter| if letter == guess then count += 1 end }
+    count
+  end
+
+  def prev_guess_count(guess, row)
+    self.guesses.all.where("value == '#{guess}' AND row == #{row} ").count
+  end
+
+  def check_exact_match?(guess, index)
+    word[index] == guess
+  end
+
+  def check_partial_match(guess, row)
+    occurance = letter_count(guess)
+    guess_total = prev_guess_count(guess, row)
+
+    case occurance
+    when 1
+      if guess_total == 0
+        'occurs'
+      else 
+        'miss'
+      end
+    when 2
+      if guess_total == 0
+        'occurs'
+      elsif guess_total == 1
+        'occurs'
+      else
+        'miss'
+      end
+    when 3
+      if guess_total.zero?
+        'occurs'
+      elsif guess_total == 1
+        'occurs'
+      elsif guess_total == 2
+        'occurs'
+      else
+        'miss'
+      end
     end
+  end
+
+  def over?
+    row = guesses.count / 5
+    guesses.all.where("row == #{row} AND result == 'match' ").count == 5
   end
 end

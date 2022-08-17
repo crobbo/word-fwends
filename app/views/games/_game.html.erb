@@ -1,17 +1,62 @@
 <div class="flex mt-10">
-    <div class="hidden md:block md:w-1/5 px-10 mt-10">
+    <div class="hidden md:block md:w-1/5">
     </div>
-    <div class="w-full md:w-3/5 max-w-md grid grid-cols-5 grid-rows-6 gap-2 mx-auto">
-        <% game.state.length.times do |i| %>
-            <div id="board_<%= i %>" class="border border-solid border-slate-800 w-20 h-20"><%= game.state[i].chr %></div>
+    <div class=" flex flex-col w-full max-w-lg mx-auto">
+        <% if @game.guesses.count > 0 %>
+                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count == 0 ] do %>
+                    <% @game.guesses.count.times do |i| %>
+                        <% if [0,1,2,3,4].include?(i) %>
+                            <%= render "guess/guess", :guess => @game.guesses.all[i] %>
+                        <% end %>
+                    <% end %>
+                <% end %>    
+                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 6 ] do %>
+                    <% @game.guesses.count.times do |i| %>
+                        <% if [5,6,7,8,9].include?(i) %>
+                            <%= render "guess/guess", :guess => @game.guesses.all[i] %>
+                        <% end %>
+                    <% end %>
+                <% end %>    
+                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 11 ] do %>
+                    <% @game.guesses.count.times do |i| %>
+                        <% if [10,11,12,13,14].include?(i)  %>
+                            <%= render "guess/guess", :guess => @game.guesses.all[i] %>
+                        <% end %>
+                    <% end %>
+                <% end %> 
+                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 16 ] do %>
+                    <% @game.guesses.count.times do |i| %>
+                        <% if [15,16,17,18,19].include?(i) %>
+                            <%= render "guess/guess", :guess => @game.guesses.all[i] %>
+                        <% end %>
+                    <% end %>
+                <% end %> 
+                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 21 ] do %>
+                    <% @game.guesses.count.times do |i| %>
+                        <% if [20,21,22,23,24].include?(i)  %>
+                            <%= render "guess/guess", :guess => @game.guesses.all[i] %>
+                        <% end %>
+                    <% end %>
+                <% end %> 
+                <%= tag.div id: "row", class: ["flex my-1 h-20 justify-center", "hidden": @game.guesses.count < 26 ] do %>
+                    <% @game.guesses.count.times do |i| %>
+                        <% if [25,26,27,28,29].include?(i) %>
+                            <%= render "guess/guess", :guess => @game.guesses.all[i] %>
+                        <% end %>
+                    <% end %>
+                <% end %> 
         <% end %>
-
-        <% (30 - game.state.length).times do |i| %>
-            <div id="board_<%= (0 + game.state.length) + i %>" class="border border-solid border-slate-800 w-20 h-20"></div>
+        <% ((30 - @game.guesses.count) / 5).times do |row|%>
+            <%= form_with model: @game, url:[@game, @guess], method: :post do |form| %>
+                <div id="row_ <%= row %>" class="flex my-1 h-20 justify-center">
+                        <% 5.times do |col| %>
+                            <input class="flex justify-center items-center text-3xl border border-solid rounded border-slate-400 w-20 mx-1" type="text" name="value_<%=col%>" id="guess" autofocus>
+                        <% end %>
+                </div>
+                <%= form.submit "Submit", class: "hidden" %>
+            <% end %>
         <% end %>
-    </div>
+    </div> 
     <div class="hidden md:block md:w-1/5">
     </div>
   </div>
-
-  
