@@ -50,7 +50,7 @@
             <%= form_with model: @game, url:[@game, @guess], method: :post do |form| %>
                 <div id="row_ <%= row %>" class="flex my-1 h-20 justify-center">
                         <% 5.times do |col| %>
-                            <input class="flex justify-center items-center text-3xl border border-solid rounded border-slate-400 w-20 mx-1" type="text" name="value_<%=col%>" id="guess" autofocus>
+                            <input class="flex justify-center items-center text-3xl bg-gray-100 border border-solid rounded border-slate-400 w-20 mx-1" type="text" name="value_<%=col%>" id="guess" autofocus>
                         <% end %>
                 </div>
                 <%= form.submit "Submit", class: "hidden" %>
