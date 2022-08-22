@@ -46,16 +46,18 @@
                     <% end %>
                 <% end %> 
         <% end %>
-        <% ((30 - @game.guesses.count) / 5).times do |row|%>
-            <%= form_with model: @game, url:[@game, @guess], html: { autocomplete: "off" }, method: :post do |form| %>
-                <div id="row_ <%= row %>" class="flex my-1 h-16 justify-center">
-                        <% 5.times do |col| %>
-                            <input  maxlength="1" class="flex justify-center items-center text-3xl bg-gray-100 border border-solid rounded border-slate-400 w-16 mx-1" type="text" name="value_<%=col%>" id="guess" autofocus>
-                        <% end %>
-                </div>
-                <%= form.submit "Submit", class: "hidden" %>
+        <div data-controller="input">
+            <% ((30 - @game.guesses.count) / 5).times do |row| %>
+                <%= form_with model: @game, url:[@game, @guess], html: { autocomplete: "off" }, method: :post do |form| %>
+                    <div id="row_ <%= row %>" class="flex my-1 h-16 justify-center">
+                            <% 5.times do |col| %>
+                                <input data-action="keydown->input#validateInput" data-input-target="inputBox" maxlength="1" class=" text-center uppercase caret-transparent text-3xl bg-gray-100 border border-solid rounded border-slate-400 w-16 mx-1 focus:ring-0 focus:border-4 focus:border-indigo-400 " type="text" name="value_<%=col%>" id="guess" autofocus>
+                            <% end %>
+                    </div>
+                    <%= form.submit "Submit", class: "hidden" %>
+                <% end %>
             <% end %>
-        <% end %>
+        </div>        
     </div> 
     <div class="hidden md:block md:w-1/5">
     </div>
