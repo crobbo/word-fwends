@@ -11,7 +11,8 @@ class GuessesController < ApplicationController
   end
 
   def create
-    # binding.pry
+    redirect_to @game and return if check_empty_guess
+
     5.times do |i|
       guess = Guess.create(game_id: @game.id)
       guess.value = params["value_#{i}".to_sym].downcase
@@ -38,4 +39,14 @@ class GuessesController < ApplicationController
     # params.require(:guess).permit(:value, :game_id)
   end
 
+  def check_empty_guess
+    5.times do |i|
+      symbol = "value_#{i}".to_sym
+      if params[symbol] == ''
+        flash[:alert] = 'Please complete your guess'
+        return true
+      end
+    end
+    false
+  end
 end
