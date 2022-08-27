@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: %i[:show,:update]
+  before_action :set_game, only: %i[show edit update destroy]
 
   def index
     @games = Game.all
@@ -10,16 +10,30 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = set_game
-    @guess = Guess.new
   end
 
   def create
     @game = Game.create
-    @game.word = @game.random_word
     @game.guess_no = 1
+    @game.word = @game.random_word
+
+    30.times do |i|
+      @game.guesses.create(value: '', row: @game.guess_no)
+    end
+
     @game.save
     redirect_to @game
+  end
+  
+  def update
+    @game.guess_no += 1
+    @game.update(game_params)
+    @game.save
+    @game.check_word?
+    redirect_to @game
+  end
+
+  def edit
   end
 
   private
@@ -29,6 +43,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:word)
+    params.require(:game).permit(:word, guesses_attributes: %i[value id])
   end
 end

@@ -6,11 +6,12 @@ export default class extends Controller {
   initialize() {
     this.index = 0
     this.focusCurrentInput()
-    console.log(this.formTargets[0])
   }
 
   validateInput(event) {
     const key = event.keyCode
+    console.log(key)
+    console.log(this.index)
       switch (true) {
         case key == 8: // backspace
           if(this.index > 0) { this.index -= 1 }
@@ -31,7 +32,7 @@ export default class extends Controller {
 
   next(event) {
     if (event.key.length == 1) {
-      if(this.index < 5) { this.index += 1 }
+      if(this.index < 4) { this.index += 1 }
       this.focusCurrentInput()
     }
   }
@@ -79,6 +80,6 @@ export default class extends Controller {
 
   submitForm() {
     this.formTargets[0].focus()
-    this.formTargets[0].submit()
+    this.formTargets[0].requestSubmit()
   }
 }

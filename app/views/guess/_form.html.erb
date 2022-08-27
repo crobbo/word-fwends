@@ -1,0 +1,10 @@
+<%= form_with model: @game, method: :patch, html: { autocomplete: "off" }, data: { input_target: "form"}, class: "grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto mt-2" do |form| %>
+    <%= form.fields_for :guesses do |ff| %>
+        <% if ff.object.value == '' %>
+        <div class="w-16 h-16">
+            <%= ff.text_field :value, class: "text-center uppercase caret-transparent text-3xl text-white bg-slate-800 border rounded focus:border-cyan-400 w-full h-full", data: {action: 'keydown->input#validateInput', input_target: 'inputBox'}, maxlength: "1" %>
+        </div>
+        <% end %>
+    <% end %> 
+    <%= form.submit "Submit", class: "hidden" %>
+<% end %>

@@ -1,9 +1,7 @@
 class CreateGames < ActiveRecord::Migration[7.0]
   def change
-    create_table :games do |t|
-      t.string :state
+    create_table :games, id: :uuid do |t|
       t.string :word
-
       t.timestamps
     end
   end

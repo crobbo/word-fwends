@@ -1,0 +1,5 @@
+<div id="guess_grid" class="grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto">  
+    <% @game.guesses.order(:updated_at).each do |guess| %>
+        <%= render "guess/guess", :guess => guess %>
+    <% end %>
+</div>

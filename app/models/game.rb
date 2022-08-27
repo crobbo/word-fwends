@@ -1,11 +1,26 @@
 class Game < ApplicationRecord
   has_many :guesses, foreign_key: 'game_id', dependent: :destroy
 
+  accepts_nested_attributes_for :guesses, reject_if: proc { |attributes| attributes['value'].blank? }
+
   def random_word
     Spicy::Proton.noun(min: 5, max: 5)
   end
 
-  def check_guess?(guess, index, row)
+  def check_word?
+    last_guess.each_with_index do |guess, index|
+      guess.row = guess_no
+      guess.result = check_letter(guess.value, index, guess.row)
+      guess.save
+    end
+  end
+
+  def last_guess
+    arr = guesses.sort_by &:updated_at
+    arr.last(5)
+  end
+
+  def check_letter(guess, index, row)
     if check_exact_match?(guess, index)
       'match'
     elsif word.include?(guess)
@@ -22,7 +37,9 @@ class Game < ApplicationRecord
   end
 
   def prev_guess_count(guess, row)
-    self.guesses.all.where("value == '#{guess}' AND row == #{row} ").count
+    return 0 if guesses.count.zero?
+
+    guesses.all.where("value = '#{guess}' AND row = #{row} ").count
   end
 
   def check_exact_match?(guess, index)
@@ -35,13 +52,13 @@ class Game < ApplicationRecord
 
     case occurance
     when 1
-      if guess_total == 0
+      if guess_total.zero?
         'occurs'
       else
         'miss'
       end
     when 2
-      if guess_total == 0
+      if guess_total.zero?
         'occurs'
       elsif guess_total == 1
         'occurs'
@@ -61,20 +78,25 @@ class Game < ApplicationRecord
     end
   end
 
+  def win?
+    guesses.all.where("row = #{guess_no} AND result = 'match' ").count == 5
+  end
+
   def over?
-    row = guesses.count / 5
-    guesses.all.where("row == #{row} AND result == 'match' ").count == 5
+    return true if guess_no > 6 && last_guess.all? { |guess| guess.result == 'miss' || guess.result == 'occurs' }
+
+    false
   end
 
   def matches?(letter)
-    guesses.all.where("value == '#{letter}' AND result == 'match'").count.positive?
+    guesses.all.where("value = '#{letter}' AND result = 'match'").count.positive?
   end
 
   def occurances?(letter)
-    guesses.all.where("value == '#{letter}' AND result == 'occurs'").count.positive?
+    guesses.all.where("value = '#{letter}' AND result = 'occurs'").count.positive?
   end
-  
+
   def misses?(letter)
-    guesses.all.where("value == '#{letter}' AND result == 'miss'").count.positive?
-  end  
+    guesses.all.where("value = '#{letter}' AND result = 'miss'").count.positive?
+  end
 end
