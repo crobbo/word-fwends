@@ -1,9 +1,5 @@
+<%= turbo_stream_from @game, :guesses %>
 
-<div id="guess_grid" class="grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto"> 
-    <% @game.guesses.order(:updated_at).each do |guess| %>
-        <% turbo_stream_from @game %> <!-- Stream from the guesses channel -->
-        <p id="<%= dom_id(guess) %>">
-            <%= render "guesses/guess", :guess => guess %>
-        </p>
-    <% end %>
+<div id="<%= dom_id(@game, :guesses) %>" class="grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto">
+    <%= render @game.guesses.first %>
 </div>

@@ -31,7 +31,7 @@ gem "cssbundling-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -62,9 +62,10 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem 'pry-rails', '~> 0.3.4'
-  gem "guard-livereload"
-  gem "rack-livereload"
+  gem 'pry', '~> 0.13.1'
+  # gem 'pry-rails', '~> 0.3.4'
+  # gem "guard-livereload"
+  # gem "rack-livereload"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

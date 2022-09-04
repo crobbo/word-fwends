@@ -24,12 +24,13 @@ class GamesController < ApplicationController
     @game.save
     redirect_to @game
   end
-  
+
   def update
     @game.guess_no += 1
     @game.update(game_params)
     @game.save
     @game.check_word?
+    @game.broadcastables
     redirect_to @game
   end
 

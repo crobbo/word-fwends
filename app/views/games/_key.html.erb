@@ -1,0 +1,2 @@
+<%= tag.div id:"#{game.id}_key_#{guess.value}" ,data: {action: "click->input#onscreenKey"}, class: ["cursor-pointer bg-gray-800 text-white flex justify-center items-center text-2xl mx-1 min-h-45px min-w-45px rounded-sm border", "bg-gray-400 border-none": game.misses?(
+    guess.value), "bg-orange-400 border-none": game.occurances?(guess.value), "bg-green-400 border-none": game.matches?(guess.value) ] do %> <%= guess.value.upcase %> <% end %>

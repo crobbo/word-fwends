@@ -15,6 +15,27 @@ class Game < ApplicationRecord
     end
   end
 
+  def broadcastables
+    broadcast_word
+    broadcast_win
+  end
+
+  def broadcast_word
+    if over? || win?
+      broadcast_update_to [self, :guesses], target: "#{id}_word_section",
+                                             partial: 'games/word',
+                                             locals:  { game: self }
+    end
+  end
+
+  def broadcast_win
+    if over? || win?
+      broadcast_update_to [self, :guesses], target: "#{id}_win_section",
+                                             partial: 'games/win',
+                                             locals:  { game: self }
+    end
+  end
+
   def last_guess
     arr = guesses.sort_by &:updated_at
     arr.last(5)
@@ -83,7 +104,7 @@ class Game < ApplicationRecord
   end
 
   def over?
-    return true if guess_no > 6 && last_guess.all? { |guess| guess.result == 'miss' || guess.result == 'occurs' }
+    return true if guess_no > 6 # && last_guess.all? { |guess| guess.result == 'miss' || guess.result == 'occurs' }
 
     false
   end
