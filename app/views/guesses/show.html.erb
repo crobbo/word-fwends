@@ -1,7 +1,0 @@
-id: dom_id(guess),
-
-<% @game.guesses.order(:updated_at).each do |guess| %>
-<div id="<%= dom_id(guess) %>">
-    <%= render "guesses/guess", :guess => guess %>
-</div>
-<% end %>

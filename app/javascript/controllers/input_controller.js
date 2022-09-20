@@ -3,83 +3,64 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["inputBox", "form"]
 
-  initialize() {
+  connect() {
     this.index = 0
-    this.focusCurrentInput()
+    this.completeGuess = false
+    if(this.inputBoxTargets.length > 0) { this.focusInput(this.completeGuess)}
   }
 
-  validateInput(event) {
-    const key = event.keyCode
-    console.log(key)
-    console.log(this.index)
-      switch (true) {
-        case key == 8: // backspace
-          if(this.index > 0) { this.index -= 1 }
-          this.focusCurrentInput()
-          this.clearInput()
-          break
-        case key == 9: // tab
-          event.preventDefault()
-          break
-        case 64 < key && key < 91: // alphabet
-          this.next(event)
-          break
-        default:
-          this.clearInput(event)
-          break
-      }
-  }
-
-  next(event) {
-    if (event.key.length == 1) {
-      if(this.index < 4) { this.index += 1 }
-      this.focusCurrentInput()
+  focusInput(completeGuess) {
+    let arr = this.inputBoxTargets.filter(box => box.value != '')
+    if(completeGuess) {
+      arr[arr.length - 1].focus() 
+    } else {
+      this.inputBoxTargets.filter(box => box.value == '')[0].focus()
     }
   }
 
-  focusCurrentInput() {
-    this.inputBoxTargets.forEach((element, index) => {
-      if (index == this.index && this.index < 5) {
-        setTimeout(() => {
-          element.focus()
-        }, 50)
+  keydown( {detail : { code }}) {
+    if (code == 8 || code == 13) { this.submitOrDelete(code) 
+    } else {
+      if(this.index < 5 ) { this.index += 1 };
+      this.addLetter(String.fromCharCode(code))
+    }
+  }
+  
+  addLetter(letter){
+    if (!this.completeGuess) {
+      let input = this.inputBoxTargets.filter(box => box.value == '')[0]
+      if (this.index < 5 && this.completeGuess == false) { 
+        input.value = letter, this.focusInput(this.completeGuess) 
+      } 
+      if (this.index == 5 ) { 
+        this.completeGuess = true, input.value = letter, this.focusInput(this.completeGuess)
       }
-    })
+    } else {
+      this.focusInput(this.completeGuess)
+    }
   }
 
-  clearInput() {
-    this.inputBoxTargets.forEach((element, index) => {
-      if (index == this.index) {
-        setTimeout(() => {
-          element.value = ''
-        }, 50)
-      }
-    })
+  submitOrDelete(code) {
+    code == 8 ? this.deleteLetter() : this.submitForm()
   }
 
-  onscreenKey(event) {
-    let keyEvent = this.processOnscreenKey(event)
-
-    this.inputBoxTargets.forEach((element, index) =>{
-      if (index == this.index) {
-        if (64 < keyEvent.keyCode && keyEvent.keyCode < 91) {
-          element.value = keyEvent.key
-        }
-      }
-    })
-
-    this.validateInput(keyEvent)
-  }
-
-  processOnscreenKey(event) {
-    let keyEvent = { key: event.target.innerText, keyCode: event.target.innerText.charCodeAt(0) } 
-    if (keyEvent.key == 'Enter') { keyEvent.keyCode = 13; this.submitForm() }  
-    if (keyEvent.key == 'Del')  keyEvent.keyCode = 8 
-    return keyEvent
+  deleteLetter() {
+    let arr = this.inputBoxTargets.filter(box => box.value != '')
+    if(this.index == 5) { this.completeGuess = false }
+    if(this.index > 0) {
+      this.index -= 1
+      arr[arr.length - 1].value = ''
+      this.focusInput(this.completeGuess)
+    }
   }
 
   submitForm() {
-    this.formTargets[0].focus()
-    this.formTargets[0].requestSubmit()
+    let count = this.inputBoxTargets.filter(box => box.value != '').length
+    if(count == 5){
+      this.formTarget.focus()
+      this.formTarget.requestSubmit()
+    } else {
+      this.focusInput(this.completeGuess)
+    }
   }
 }

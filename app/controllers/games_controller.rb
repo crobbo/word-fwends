@@ -28,10 +28,16 @@ class GamesController < ApplicationController
   def update
     @game.guess_no += 1
     @game.update(game_params)
-    @game.save
-    @game.check_word?
-    @game.broadcastables
-    redirect_to @game
+    respond_to do |format|
+      if @game.save
+        @game.check_word?
+        @game.broadcastables
+        format.html { redirect_to @game }
+        # format.turbo_stream { render turbo_stream: turbo_stream.replace('#{dom_id(@game)}', partial: 'games/form') }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit

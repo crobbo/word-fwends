@@ -14,7 +14,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body class="bg-gray-800" data-controller="input">
+  <body class="bg-gray-800">
     <% flash.each do |type, msg| %>
       <div class="text-white">
         <%= msg  %>

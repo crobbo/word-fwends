@@ -1,5 +1,0 @@
-<%= turbo_stream_from @game, :guesses %>
-
-<div id="<%= dom_id(@game, :guesses) %>" class="grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto">
-    <%= render @game.guesses.first %>
-</div>

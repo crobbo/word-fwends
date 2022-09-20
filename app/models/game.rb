@@ -10,7 +10,7 @@ class Game < ApplicationRecord
   def check_word?
     last_guess.each_with_index do |guess, index|
       guess.row = guess_no
-      guess.result = check_letter(guess.value, index, guess.row)
+      guess.result = check_letter(guess.value.downcase, index, guess.row)
       guess.save
     end
   end
