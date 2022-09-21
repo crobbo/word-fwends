@@ -52,6 +52,7 @@ export default class extends Controller {
       arr[arr.length - 1].value = ''
       this.focusInput(this.completeGuess)
     }
+    if(this.index == 0) { this.focusInput(this.completeGuess) }
   }
 
   submitForm() {
@@ -60,7 +61,7 @@ export default class extends Controller {
       this.formTarget.focus()
       this.formTarget.requestSubmit()
     } else {
-      this.focusInput(this.completeGuess)
+      this.focusInput(this.completeGuess) 
     }
   }
 }
