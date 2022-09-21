@@ -8,7 +8,7 @@
             </div>
         <% else %>
             <div id="input_<%= dom_id(ff.object)%>" class="w-16 h-16 ">
-                <%= ff.text_field :value, class: ["text-center uppercase caret-transparent text-3xl text-white bg-slate-800 border rounded focus:border-cyan-400 w-full h-full", "bg-green-400": ff.object.result == 'match', "bg-orange-400": ff.object.result == 'occurs', "bg-gray-400": ff.object.result == 'miss' ], data: {input_target: 'inputBox'}, maxlength: "1" %>
+                <%= ff.text_field :value, class: ["text-center uppercase caret-transparent text-3xl text-white bg-slate-800 border rounded focus:border-cyan-400 w-full h-full", "bg-green-400": ff.object.result == 'match', "bg-orange-400": ff.object.result == 'occurs', "bg-gray-400": ff.object.result == 'miss' ], data: {input_target: 'inputBox'}, autofocus: "true", maxlength: "1" %>
             </div>
         <% end %>
     <% end %> 

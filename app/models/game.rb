@@ -10,7 +10,7 @@ class Game < ApplicationRecord
   def check_word?
     last_guess.each_with_index do |guess, index|
       guess.row = guess_no
-      guess.result = check_letter(guess.value.downcase, index, guess.row)
+      guess.result = check_letter(guess.value, index, guess.row)
       guess.save
     end
   end
@@ -60,7 +60,7 @@ class Game < ApplicationRecord
   def prev_guess_count(guess, row)
     return 0 if guesses.count.zero?
 
-    guesses.all.where("value = '#{guess}' AND row = #{row} ").count
+    guesses.all.where("value = '#{guess.downcase}' AND row = #{row} ").count
   end
 
   def check_exact_match?(guess, index)

@@ -27,6 +27,7 @@ export default class extends Controller {
   }
   
   addLetter(letter){
+    letter = letter.toLowerCase() // required for ruby code to work. Don't ammend!
     if (!this.completeGuess) {
       let input = this.inputBoxTargets.filter(box => box.value == '')[0]
       if (this.index < 5 && this.completeGuess == false) { 
