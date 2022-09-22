@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   has_many :guesses, foreign_key: 'game_id', dependent: :destroy
+  has_many :players, foreign_key: 'game_id', dependent: :destroy
 
   accepts_nested_attributes_for :guesses, reject_if: proc { |attributes| attributes['value'].blank? }
 
