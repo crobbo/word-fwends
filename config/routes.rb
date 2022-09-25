@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     resources :guesses
   end
 
+  resources :players
+
   root to: 'games#index'
 end

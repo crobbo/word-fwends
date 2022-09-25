@@ -379,4 +379,20 @@ RSpec.describe Game, type: :model do
       expect(game.misses?('i')).to eq(false)
     end
   end
+
+  context 'Players have been setup' do
+    it 'returns player object when player is found' do
+      game = Game.create(word: 'mists', id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a')
+      player = Player.create(name: 'Bob', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 1)
+      player2 = Player.create(name: 'Sue', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 2)
+      expect(game.find_player(2)).to eq(player2)
+    end
+
+    it 'returns player object when player is found' do
+      game = Game.create(word: 'mists', id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a')
+      player = Player.create(name: 'Bob', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 1)
+      player2 = Player.create(name: 'Sue', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 2)
+      expect(game.find_player(1)).to eq(player)
+    end
+  end
 end

@@ -121,4 +121,12 @@ class Game < ApplicationRecord
   def misses?(letter)
     guesses.all.where("value = '#{letter}' AND result = 'miss'").count.positive?
   end
+
+  def find_player(num)
+    players.select { |player| player[:player_no] == num }[0]
+  end
+
+  def check_player_two?(id)
+    players.all.each { |player| return true if player.player_no == 2 && player.id == id }
+  end
 end

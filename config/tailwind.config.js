@@ -20,11 +20,15 @@ module.exports = {
       minWidth: {
         '60px': '60px',
         '45px': '45px',
-      }
+      },
+
+      fontSize: {
+        '36px': '36px',
+      },
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    // require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
   ]

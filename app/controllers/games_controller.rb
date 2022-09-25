@@ -10,12 +10,20 @@ class GamesController < ApplicationController
   end
 
   def show
+    # Only store session for Player 2
+    session[:player_id] = params[:player] if !params[:player].nil? && @game.check_player_two?(params[:player])
+    if params[:ready]
+      @game.ready = true
+      @game.save
+    end
   end
 
   def create
     @game = Game.create
     @game.guess_no = 1
     @game.word = @game.random_word
+    Player.create(name: '', game_id: @game.id, player_no: 1)
+    Player.create(name: '', game_id: @game.id, player_no: 2)
 
     30.times do |i|
       @game.guesses.create(value: '', row: @game.guess_no)
@@ -50,6 +58,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:word, guesses_attributes: %i[value id])
+    params.require(:game).permit(:word, guesses_attributes: %i[value id] )
   end
 end
