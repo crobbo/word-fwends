@@ -10,7 +10,6 @@ class GamesController < ApplicationController
   end
 
   def show
-    # binding.pry
     # Only store session for Player 2
     session[:player_id] = params[:player_two] if !params[:player_two].nil? && @game.check_player_two?(params[:player_two])
     if params[:ready]

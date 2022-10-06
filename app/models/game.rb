@@ -1,5 +1,3 @@
-require 'pry'
-
 class Game < ApplicationRecord
   has_many :guesses, foreign_key: 'game_id', dependent: :destroy
   has_many :players, foreign_key: 'game_id', dependent: :destroy
