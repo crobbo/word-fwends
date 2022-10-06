@@ -1,12 +1,19 @@
 <div data-controller="input keyboard" data-action="keyboard:keyPress->input#keydown">
-  <div id="<%= @game.id %>_win_section"
-    class="min-h-100px flex flex-col justify-center text-center text-3xl font-bold text-white">
-    <%= render 'games/win', :game => @game %>
+  <!-- Player info / result section -->
+  <div 
+    class="min-h-200px flex flex-col justify-center text-center text-3xl text-white">
+    <div class="mt-5 mb-5 font-bold">
+      <span class="text-orange-500"><%= @game.find_player(@game.active_player).name.capitalize %></span><span> is playing 🔥 </span>
+    </div>
+    <div id="<%= @game.id %>_result_section" class="flex justify-center">
+      <%= render 'games/result', :game => @game %>
+    </div>
   </div>
+  <!--  main game area  -->
   <div class="flex">
     <div class="md:flex md:w-2/5 flex-col">
-      <div id="<%= @game.id %>_word_section" class="w-1/2">
-        <%= render "games/word", :game => @game %>
+      <div class="p-10">
+        <%= button_to 'Begin Next Round', game_path, method: :patch, class: "bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" %>
       </div>
     </div>
     <div class=" flex flex-col w-full max-w-lg mx-auto" data-action="keydown->keyboard#keyPress">
@@ -19,8 +26,6 @@
     <%= render "keyboard", :game => @game %>
   </div>
 </div>
-
-
 
 <% if !@game.ready %>
   <div class=" fixed top-0 left-0 w-full h-full z-40 bg-gray-800 flex flex-col justify-center items-center">

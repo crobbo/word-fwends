@@ -394,5 +394,29 @@ RSpec.describe Game, type: :model do
       player2 = Player.create(name: 'Sue', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 2)
       expect(game.find_player(1)).to eq(player)
     end
+
+    it 'returns false when params[:player] is nil' do
+      game = Game.create(word: 'mists', id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a')
+      Player.create(name: '', game_id: game.id, player_no: 1)
+      Player.create(name: '', game_id: game.id, player_no: 2)
+      params = { player_two: nil }
+      expect(game.check_player_two?(params[:player_two])).to eq(false)
+    end
+
+    it 'returns true when player 2 exists' do
+      game = Game.create(word: 'mists', id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a')
+      Player.create(id: 'ca8a99de-2fa1-4c09-be8c-d6e5db0864sad', name: '', game_id: game.id, player_no: 1)
+      Player.create(id: 'ca8a99de-2fa1-4c09-be8c-d6e5db0864a6', name: '', game_id: game.id, player_no: 2)
+      params = { player_two: 'ca8a99de-2fa1-4c09-be8c-d6e5db0864a6' }
+      expect(game.check_player_two?('ca8a99de-2fa1-4c09-be8c-d6e5db0864a6')).to eq(true)
+    end
+
+    it 'returns false when player 2 does not exists' do
+      game = Game.create(word: 'mists', id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a')
+      Player.create(id: 'ca8a99de-2fa1-4c09-be8c-d6e5db0864sad', name: '', game_id: game.id, player_no: 1)
+      Player.create(id: 'ca8a99de-2fa1-4c09-be8c-d6e5db0864b7', name: '', game_id: game.id, player_no: 2)
+      params = { player_two: 'ca8a99de-2fa1-4c09-be8c-d6e5db0864a6' }
+      expect(game.check_player_two?('ca8a99de-2fa1-4c09-be8c-d6e5db0864a6')).to eq(false)
+    end
   end
 end

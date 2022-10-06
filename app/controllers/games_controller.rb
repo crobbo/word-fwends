@@ -10,8 +10,9 @@ class GamesController < ApplicationController
   end
 
   def show
+    # binding.pry
     # Only store session for Player 2
-    session[:player_id] = params[:player] if !params[:player].nil? && @game.check_player_two?(params[:player])
+    session[:player_id] = params[:player_two] if !params[:player_two].nil? && @game.check_player_two?(params[:player_two])
     if params[:ready]
       @game.ready = true
       @game.save
@@ -34,8 +35,12 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game.guess_no += 1
-    @game.update(game_params)
+    if @game.over?
+      @game.next_round
+    else
+      @game.guess_no += 1
+      @game.update(game_params)
+    end
     respond_to do |format|
       if @game.save
         @game.check_word?
@@ -58,6 +63,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:word, guesses_attributes: %i[value id] )
+    params.require(:game).permit(:word, guesses_attributes: %i[value id])
   end
 end

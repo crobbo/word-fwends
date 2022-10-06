@@ -19,6 +19,20 @@ id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 
                     <%= ff.object.value %>
                 <% end %>
             </div>
+        <% elsif session[:player_id] != @game.find_player(@game.active_player).id && ff.object.value == '' %>
+            <div id="input_<%= dom_id(ff.object)%>" class=" w-16 h-16">
+                <%= tag.div :value, class: ["text-center
+                                             uppercase
+                                             text-3xl
+                                             text-white
+                                             bg-slate-800
+                                             border
+                                             rounded
+                                             w-full
+                                             h-full"] do %>
+                    <%= ff.object.value %>
+                <% end %>
+            </div>
         <% else %>
             <div id="input_<%= dom_id(ff.object)%>" class="w-16 h-16 ">
                 <%= ff.text_field :value, class: ["text-center

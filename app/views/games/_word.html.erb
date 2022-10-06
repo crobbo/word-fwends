@@ -1,7 +1,3 @@
-
- <% if game.over? || game.win? %>
-    <h1 class="text-5xl font-semibold text-indigo-500 uppercase text-center">
-        <%= game.word %>
-    </h1>
-    <!-- <p class="mt-5 text-white text-xl italic">Write a descriptive definition here to educate the user.</p>             -->
-<% end %>
+<h1 class="text-2xl font-semibold text-indigo-500">
+    <span class="text-white">The word was </span><span class="text-pink-500"><%= game.word.upcase %></span>
+</h1>

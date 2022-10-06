@@ -1,3 +1,5 @@
+require 'pry'
+
 class Game < ApplicationRecord
   has_many :guesses, foreign_key: 'game_id', dependent: :destroy
   has_many :players, foreign_key: 'game_id', dependent: :destroy
@@ -17,8 +19,17 @@ class Game < ApplicationRecord
   end
 
   def broadcastables
-    broadcast_word
-    broadcast_win
+    broadcast_result
+    # broadcast_word
+    # broadcast_win
+  end
+
+  def broadcast_result
+    if over? || win?
+      broadcast_update_to [self, :guesses], target: "#{id}_result_section",
+                                             partial: 'games/result',
+                                             locals:  { game: self }
+    end
   end
 
   def broadcast_word
@@ -105,7 +116,7 @@ class Game < ApplicationRecord
   end
 
   def over?
-    return true if guess_no > 6 # && last_guess.all? { |guess| guess.result == 'miss' || guess.result == 'occurs' }
+    return true if guess_no > 6 || win? # && last_guess.all? { |guess| guess.result == 'miss' || guess.result == 'occurs' }
 
     false
   end
@@ -122,11 +133,27 @@ class Game < ApplicationRecord
     guesses.all.where("value = '#{letter}' AND result = 'miss'").count.positive?
   end
 
+  # returns player object
   def find_player(num)
     players.select { |player| player[:player_no] == num }[0]
   end
 
   def check_player_two?(id)
-    players.all.each { |player| return true if player.player_no == 2 && player.id == id }
+    return false if id.nil?
+
+    players.each do |player|
+      return true if player.player_no == 2 && player.id == id
+      return false if player.player_no == 2 && player.id != id
+    end
+  end
+
+  def next_round
+    self.word = random_word
+    self.guess_no = 1
+    guesses.delete_all
+    self.active_player = active_player == 1 ? 2 : 1
+    30.times do |i|
+      guesses.create(value: '', row: guess_no)
+    end
   end
 end
