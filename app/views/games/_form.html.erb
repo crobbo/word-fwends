@@ -2,7 +2,7 @@
 id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto mt-2" do |form| %>
     <%= form.fields_for :guesses, @game.guesses.order(:created_at) do |ff| %>
         <% if ff.object.value != '' %>
-            <div id="input_<%= dom_id(ff.object)%>" class="w-16 h-16">
+            <div id="input_<%= dom_id(ff.object)%>" class="w-12 h-12 sm:w-14 sm:h-14">
                 <%= tag.div :value, class: ["flex
                                              justify-center
                                              items-center
@@ -20,7 +20,7 @@ id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 
                 <% end %>
             </div>
         <% elsif session[:player_id] != @game.find_player(@game.active_player).id && ff.object.value == '' %>
-            <div id="input_<%= dom_id(ff.object)%>" class=" w-16 h-16">
+            <div id="input_<%= dom_id(ff.object)%>" class="w-12 h-12 sm:w-14 sm:h-14">
                 <%= tag.div :value, class: ["text-center
                                              uppercase
                                              text-3xl
@@ -34,7 +34,7 @@ id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 
                 <% end %>
             </div>
         <% else %>
-            <div id="input_<%= dom_id(ff.object)%>" class="w-16 h-16 ">
+            <div id="input_<%= dom_id(ff.object)%>" class="w-12 h-12 sm:w-14 sm:h-14">
                 <%= ff.text_field :value, class: ["text-center
                                                    uppercase
                                                    caret-transparent

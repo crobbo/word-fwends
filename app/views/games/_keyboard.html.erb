@@ -1,15 +1,21 @@
   <div class="flex justify-center" data-controller="keyboard" data-action="keyboard:onscreenKey->input#keydown">
     <% ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].each do |letter| %>
-      <%= render "games/key", :game => game, :letter => letter %>
+        <div class="h-10 w-10 rounded-sm border mx-px">
+          <%= render "games/key", :game => game, :letter => letter %>
+        </div>
     <% end %>
   </div>
-  <div class="flex justify-center mt-2" data-controller="keyboard" data-action="keyboard:onscreenKey->input#keydown">
+  <div class="flex justify-center mt-2 w-full" data-controller="keyboard" data-action="keyboard:onscreenKey->input#keydown">
     <% ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' ].each do |letter| %>
-     <%= render "games/key", :game => game, :letter => letter %>
+        <div class="h-10 w-10 rounded-sm border mx-px">
+          <%= render "games/key", :game => game, :letter => letter %>
+        </div>
     <% end %>
   </div>
-  <div class="flex justify-center mt-2" data-controller="keyboard" data-action="keyboard:onscreenKey->input#keydown">
+  <div class="flex justify-center mt-2 w-full" data-controller="keyboard" data-action="keyboard:onscreenKey->input#keydown">
     <% ['enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'del'].each do |letter| %>
-      <%= render "games/key", :game => game, :letter => letter %>
+        <div class="h-10 w-10 rounded-sm border mx-px">
+          <%= render "games/key", :game => game, :letter => letter %>
+        </div>
     <% end %>
   </div>

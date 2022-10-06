@@ -1,7 +1,9 @@
 <% if player.name == '' %>
   <%= form_with url: "/players/#{player[:id]}", scope: :player, method: :patch, html: { autocomplete: "off" }, class: "w-full mt-2 z-50" do |form| %>
     <%= form.hidden_field :game_id, value: @game.id %>
-    <%= form.text_field :name, placeholder: "Player Two's Name", class: "py-2 px-4 rounded-sm w-4/5 h-12 text-xl", autofocus: "true"  %>
-    <%= form.submit "Add", class: "bg-indigo-500 text-white text-lg font-bold py-2 px-4 ml-1 rounded hover:cursor-pointer h-12" %>
+    <div class="flex w-full"">
+      <%= form.text_field :name, placeholder: "Player Two's Name", class: "py-2 px-4 rounded-sm w-4/5 h-12 text-xl", autofocus: "true"  %>
+      <%= form.submit "Add", class: "bg-indigo-500 text-white text-lg font-bold py-2 px-4 ml-1 rounded hover:cursor-pointer h-12" %>
+    </div>
   <% end %>
 <% end %>

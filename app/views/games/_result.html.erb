@@ -1,6 +1,16 @@
 <% if game.over? || game.win? %>
-    <div class="w-1/3 p-2 mb-5 border border-1 rounded-lg border-white">
+    <div class="w-full max-w-xs md:w-1/3 p-2 border md:border-1 rounded-lg border-white">
         <%= render 'games/win', :game => game %>
         <%= render "games/word", :game => game %>
     </div>
+    <div class="my-5 w-full sm:w-2/5 md:w-1/5">
+        <%= button_to 'Begin Next Round', game_path(game), method: :patch, class: 
+                                                                                "bg-pink-500
+                                                                                hover:bg-pink-700
+                                                                                text-sm
+                                                                                text-white
+                                                                                font-bold
+                                                                                py-2 px-4 
+                                                                                rounded-full" %>
+        </div>
 <% end %>

@@ -1,66 +1,32 @@
-<div data-controller="input keyboard" data-action="keyboard:keyPress->input#keydown">
-  <!-- Player info / result section -->
-  <div 
-    class="min-h-200px flex flex-col justify-center text-center text-3xl text-white">
-    <div class="mt-5 mb-5 font-bold">
-      <span class="text-orange-500"><%= @game.find_player(@game.active_player).name.capitalize %></span><span> is playing 🔥 </span>
+<div class="flex flex-col justify-between h-screen" data-controller="input keyboard" data-action="keyboard:keyPress->input#keydown">
+    <!-- Player info / result section -->
+    <div class="my-5 md:my-0 md:min-h-200px flex flex-col justify-center text-center text-3xl text-white">
+        <div class="md:mt-5 md:mb-5 font-bold">
+            <span class="text-orange-500"><%= @game.find_player(@game.active_player).name.capitalize %></span>
+            <span> is playing 🔥</span>
+        </div>
+        <div id="<%= @game.id %>_result_section" class="flex flex-col items-center justify-center mx-2">
+            <%= render 'games/result', :game => @game %>
+        </div>
     </div>
-    <div id="<%= @game.id %>_result_section" class="flex justify-center">
-      <%= render 'games/result', :game => @game %>
+    <!--  main game area  -->
+    <div class="flex">
+        <div class="hidden md:flex md:flex-col md:w-2/5">
+            <div class="p-10">
+            </div>
+        </div>
+        <div class="flex flex-col w-full max-w-lg mx-auto" data-action="keydown->keyboard#keyPress">
+           <%= render "game", :game => @game %>
+          <div class="mt-10">
+            <%= render "keyboard", :game => @game %>
+         </div>
+        </div>
+        <div class="hidden md:flex md:flex-col md:w-2/5">
     </div>
-  </div>
-  <!--  main game area  -->
-  <div class="flex">
-    <div class="md:flex md:w-2/5 flex-col">
-      <div class="p-10">
-        <%= button_to 'Begin Next Round', game_path, method: :patch, class: "bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full" %>
-      </div>
-    </div>
-    <div class=" flex flex-col w-full max-w-lg mx-auto" data-action="keydown->keyboard#keyPress">
-      <%= render "game", :game => @game %>
-    </div>
-    <div class=" md:block md:w-2/5">
-    </div>
-  </div>
-  <div class="max-w-xl mx-auto mt-10"">
-    <%= render "keyboard", :game => @game %>
-  </div>
+
 </div>
 
+<!-- Game setup / URL share screens -->
 <% if !@game.ready %>
-  <div class=" fixed top-0 left-0 w-full h-full z-40 bg-gray-800 flex flex-col justify-center items-center">
-    <div>
-      <% if @game.players[0].name.blank? || @game.players[1].name.blank? %>
-      <h1 class="z-50 text-white text-6xl font-bold">Game Setup</h1>
-      <p class="text-indigo-100 z-50 mb-5 text-xl mt-2 ">To enable your sharing link, enter both players' names.</p>
-      <% end %>
-
-      <%= render "players/form_one", :game => @game, :player => @game.players.select { |player| player[:player_no] == 1 }[0] %>
-      <%= render "players/form_two", :game => @game, :player => @game.players.select { |player| player[:player_no] == 2 }[0] %>
-
-      <% if @game.players[0].name.present? && @game.players[1].name.present? %>
-      <div class="w-full max-w-6xl flex flex-col items-center justify-center">
-        <div class="w-2/3">
-          <h1 class="z-50 text-white text-6xl font-bold">Share this link with <span
-              class="text-indigo-500"><%= @game.find_player(2).capitalize_name %></span></h1>
-          <p class="text-indigo-100 mt-2 text-xl">Compete in a head to head match. Best of 5 games wins!</p>
-          <div class="flex mt-6">
-            <div class="bg-gray-600 p-4 rounded text-gray-300 text-xl w-2/3 h-10 whitespace-nowrap
-                          flex justify-start items-center overflow-hidden hover:outline hover:outline-4
-                            hover:outline-indigo-500 hover:cursor-pointer">
-              <%= 'http://127.0.0.1:3000/games/' + @game.id + "?player_two=#{@game.find_player(2).id}" %>
-            </div>
-            <div class="flex flex-col justify-center items-center">
-              <span class="material-icons text-white ml-2 
-                hover:text-indigo-500 hover:cursor-pointer text-4xl">
-                file_copy
-              </span>
-            </div>
-          </div>
-          <%= button_to "Start Game", game_path(@game), params: {ready: true}, method: :get, class: "bg-indigo-500 text-white text-2xl font-bold py-2 px-4 rounded mt-10" %>
-        </div>
-      </div>
-      <% end %>
-    </div>
-  </div>
+    <%= render "gameSetup", :game => @game %>
 <% end %>

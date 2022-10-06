@@ -1,14 +1,14 @@
-<%= tag.button id:"#{game.id}_key_#{letter}", data: {action: "keyboard#onscreenKey"}, 
-    class: ["cursor-pointer
-            text-white
-            flex
+<%= tag.div id:"#{game.id}_key_#{letter}", data: {action: "keyboard#onscreenKey"}, 
+    class: ["
+            flex 
             justify-center
             items-center
-            text-2xl 
-            mx-1 
-            min-h-45px
-            min-w-45px 
-            rounded-sm border", 
+            w-full
+            h-full
+            cursor-pointer
+            text-center
+            text-white
+            text-sm", 
             "bg-gray-400 border-none": game.misses?(letter) && !game.matches?(letter) && !game.occurances?(letter),
             "bg-orange-400 border-none": game.occurances?(letter) && !game.matches?(letter),
             "bg-green-400 border-none": game.matches?(letter)  ] do %>
