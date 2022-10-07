@@ -10,7 +10,7 @@
         <%= render "players/form_two", :game => @game, :player => @game.players.select { |player| player[:player_no] == 2 }[0] %>
     </div>
     <!-- Share URL screen -->
-    <div class="sm:w-4/5 px-5">
+    <div class="w-4/5 px-5">
         <% if @game.players[0].name.present? && @game.players[1].name.present? %>
             <div class="w-full flex items-center justify-center md:pl-20 xl:pl-36">
                 <div class="w-full">
