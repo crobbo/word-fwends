@@ -8,6 +8,8 @@
         <div id="<%= @game.id %>_result_section" class="flex flex-col items-center justify-center mx-2">
             <%= render 'games/result', :game => @game %>
         </div>
+        <%= render 'waitingMessage', :game => @game %>
+        <%= render 'startNewGameBtn', :game => @game %>
     </div>
     <!--  main game area  -->
     <div class="flex">
