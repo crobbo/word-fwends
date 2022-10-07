@@ -1,4 +1,4 @@
-<% if session[:player_id] != @game.find_player(@game.active_player).id %>
+<% if (@game.over? || @game.win?) && session[:player_id] != @game.find_player(@game.active_player).id %>
     <div class="text-center text-sm md:text-base mt-2">
         <h1 class="font-light">Waiting for<span class="font-bold"> <%= @game.find_player(@game.active_player).name.capitalize %>
         </span> to start the next round...</h1>
