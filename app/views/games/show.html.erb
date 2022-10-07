@@ -8,7 +8,12 @@
         <div id="<%= @game.id %>_result_section" class="flex flex-col items-center justify-center mx-2">
             <%= render 'games/result', :game => @game %>
         </div>
-        <%= render 'waitingMessage', :game => @game %>
+        <div id="<%= @game.id %>_player_ready">
+            <%= render 'playerReady', :game => @game %>
+        </div>
+        <div id="<%= @game.id %>_waiting_message">
+            <%= render 'waitingMessage', :game => @game %>
+        </div>
         <%= render 'startNewGameBtn', :game => @game %>
     </div>
     <!--  main game area  -->

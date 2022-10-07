@@ -17,34 +17,46 @@ class Game < ApplicationRecord
   end
 
   def broadcastables
-    broadcast_result
-    # broadcast_word
-    # broadcast_win
+    if over?
+      broadcast_result
+      broadcast_player_ready
+      broadcast_waiting_message
+    end
   end
 
   def broadcast_result
-    if over? || win?
-      broadcast_update_to [self, :guesses], target: "#{id}_result_section",
-                                             partial: 'games/result',
-                                             locals:  { game: self }
-    end
+    broadcast_update_to [self, :guesses], target: "#{id}_result_section",
+                                            partial: 'games/result',
+                                            locals:  { game: self }
   end
 
-  def broadcast_word
-    if over? || win?
-      broadcast_update_to [self, :guesses], target: "#{id}_word_section",
-                                             partial: 'games/word',
-                                             locals:  { game: self }
-    end
+  def broadcast_player_ready
+    broadcast_update_to [self, :guesses], target: "#{id}_player_ready",
+                                            partial: 'games/playerReady',
+                                            locals:  { game: self }
   end
 
-  def broadcast_win
-    if over? || win?
-      broadcast_update_to [self, :guesses], target: "#{id}_win_section",
-                                             partial: 'games/win',
-                                             locals:  { game: self }
-    end
+  def broadcast_waiting_message
+    broadcast_update_to [self, :guesses], target: "#{id}_waiting_message",
+                                            partial: 'games/waitingMessage',
+                                            locals:  { game: self }
   end
+
+  # def broadcast_word
+  #   if over? || win?
+  #     broadcast_update_to [self, :guesses], target: "#{id}_word_section",
+  #                                            partial: 'games/word',
+  #                                            locals:  { game: self }
+  #   end
+  # end
+
+  # def broadcast_win
+  #   if over? || win?
+  #     broadcast_update_to [self, :guesses], target: "#{id}_win_section",
+  #                                            partial: 'games/win',
+  #                                            locals:  { game: self }
+  #   end
+  # end
 
   def last_guess
     arr = guesses.sort_by &:updated_at

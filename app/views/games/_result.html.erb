@@ -1,4 +1,4 @@
-<% if game.over? || game.win? %>
+<% if game.over? %>
     <div class="w-full max-w-xs md:w-1/3 p-2 border md:border-1 rounded-lg border-white">
         <%= render 'games/win', :game => game %>
         <%= render "games/word", :game => game %>

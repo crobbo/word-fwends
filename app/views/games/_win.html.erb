@@ -1,5 +1,5 @@
 <% if game.win? %>
     <span class="text-green-500">You Win!</span>
 <% elsif game.over? %>
-    <span class="text-cyan-500 text-2xl">Better luck next time!</span>
+    <span class="text-cyan-500 text-xl">Better luck next time <%= game.find_player(game.active_player).name.capitalize %>!</span>
 <% end %>
