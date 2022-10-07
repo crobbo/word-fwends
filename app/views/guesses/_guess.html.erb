@@ -1,4 +1,4 @@
-<%= tag.div id:dom_id(guess), class: ["flex justify-center items-center text-center uppercase text-3xl text-white rounded w-16 h-16", 
+<%= tag.div id:dom_id(guess), class: ["flex justify-center items-center text-center uppercase text-3xl text-white rounded w-12 h-12 sm:w-14 sm:h-14", 
                                       "bg-green-400": guess.result == 'match', "bg-orange-400": guess.result == 'occurs', 
                                       "bg-gray-400": guess.result == 'miss', "hidden": guess.value.empty? ] do %>
     <%= guess.value %>
