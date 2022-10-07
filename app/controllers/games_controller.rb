@@ -34,7 +34,6 @@ class GamesController < ApplicationController
   end
 
   def update
-    binding.pry
     if @game.over?
       @game.next_round
     else
