@@ -4,11 +4,15 @@ input:checked ~ .dot {
     background-color: #48bb78;
   }
 
-  .custom-height {
+
+  body {
+    min-height: 100vh;
+  }
+  /* .custom-height {
     min-height: 100vh;
     height: -webkit-fill-available; 
   }
 
   html {
     min-height: -webkit-fill-available;
-  }
+  } */

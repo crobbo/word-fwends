@@ -1,37 +1,47 @@
-<div class="flex flex-col justify-between md:justify-start custom-height" data-controller="input keyboard" data-action="keyboard:keyPress->input#keydown">
-    <!-- Player info / result section -->
-    <div class="my-5 flex flex-col justify-center text-center text-3xl text-white">
-        <div class="my-5 font-bold">
-            <span class="text-orange-500"><%= @game.find_player(@game.active_player).name.capitalize %></span>
-            <span> is playing 🔥</span>
-        </div>
-        <div id="<%= @game.id %>_result_section" class="flex flex-col items-center justify-center mx-2">
-            <%= render 'games/result', :game => @game %>
-        </div>
-        <div id="<%= @game.id %>_player_ready">
-            <%= render 'playerReady', :game => @game %>
-        </div>
-        <div id="<%= @game.id %>_waiting_message">
-            <%= render 'waitingMessage', :game => @game %>
-        </div>
-        <div id="<%= @game.id %>_start_new_round_btn">
-            <%= render 'startNewRoundBtn', :game => @game %>
-        </div>
+
+<!-- Player info / result section -->
+<div class="my-5 flex flex-col justify-center text-center text-3xl text-white">
+    <div class="my-5 font-bold">
+        <span class="text-orange-500"><%= @game.find_player(@game.active_player).name.capitalize %></span>
+        <span> is playing 🔥</span>
     </div>
+    <div id="<%= @game.id %>_result_section" class="flex flex-col items-center justify-center mx-2">
+        <%= render 'games/result', :game => @game %>
+    </div>
+    <div id="<%= @game.id %>_player_ready">
+        <%= render 'playerReady', :game => @game %>
+    </div>
+    <div id="<%= @game.id %>_waiting_message">
+        <%= render 'waitingMessage', :game => @game %>
+    </div>
+    <div id="<%= @game.id %>_start_new_round_btn">
+        <%= render 'startNewRoundBtn', :game => @game %>
+    </div>
+</div>
+
+<div class="flex flex-col justify-between md:justify-start h-full" data-controller="input keyboard" data-action="keyboard:keyPress->input#keydown">
     <!--  main game area  -->
     <div class="flex">
+
         <div class="hidden md:flex md:flex-col md:w-2/5">
             <div class="p-10">
             </div>
         </div>
-        <div class="flex flex-col w-full max-w-lg mx-auto" data-action="keydown->keyboard#keyPress">
+
+        <div class="flex flex-col w-full max-w-lg mx-auto md:py-0" data-action="keydown->keyboard#keyPress">
            <%= render "game", :game => @game %>
-          <div class="mt-20">
-            <%= render "keyboard", :game => @game %>
-         </div>
+          
         </div>
+
         <div class="hidden md:flex md:flex-col md:w-2/5">
        </div>
+    </div>
+
+    <div class="fixed bottom-0 flex items-center md:relative justify-center w-full mt-20">
+        <div>
+            <%= render "keyboard", :game => @game %>
+        </div>
+    </div>
 
 </div>
 
