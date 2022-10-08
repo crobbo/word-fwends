@@ -8,6 +8,11 @@ input:checked ~ .dot {
   body {
     min-height: 100vh;
   }
+
+  .custom-height {
+    height: -webkit-fill-available;
+  }
+
   /* .custom-height {
     min-height: 100vh;
     height: -webkit-fill-available; 

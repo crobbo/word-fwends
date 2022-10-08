@@ -21,6 +21,7 @@ class Game < ApplicationRecord
       broadcast_result
       broadcast_player_ready
       broadcast_waiting_message
+      broadcast_hide_keyboard
     end
   end
 
@@ -45,6 +46,12 @@ class Game < ApplicationRecord
   def broadcast_start_new_round_btn
     broadcast_update_to [self, :guesses], target: "#{id}_start_new_round_btn",
                                           partial: 'games/startNewRoundBtn',
+                                          locals:  { game: self }
+  end
+
+  def broadcast_hide_keyboard
+    broadcast_update_to [self, :guesses], target: "#{id}_keyboard",
+                                          partial: 'games/keyboard',
                                           locals:  { game: self }
   end
 
