@@ -5,11 +5,10 @@ input:checked ~ .dot {
   }
 
   .custom-height {
-    height: 100vh;
-    /* mobile viewport bug fix */
-    min-height: -webkit-fill-available;
+    min-height: 100vh;
+    height: -webkit-fill-available; 
   }
 
   html {
-    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
   }
