@@ -4,7 +4,8 @@ input:checked ~ .dot {
     background-color: #48bb78;
   }
 
-  .body {
+  .custom-height {
+    height: 100vh;
     /* mobile viewport bug fix */
     min-height: -webkit-fill-available;
   }
