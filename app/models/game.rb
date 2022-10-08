@@ -42,6 +42,12 @@ class Game < ApplicationRecord
                                             locals:  { game: self }
   end
 
+  def broadcast_start_new_round_btn
+    broadcast_update_to [self, :guesses], target: "#{id}_start_new_round_btn",
+                                          partial: 'games/startNewRoundBtn',
+                                          locals:  { game: self }
+  end
+
   # def broadcast_word
   #   if over? || win?
   #     broadcast_update_to [self, :guesses], target: "#{id}_word_section",
@@ -165,5 +171,11 @@ class Game < ApplicationRecord
     30.times do |i|
       guesses.create(value: '', row: guess_no)
     end
+  end
+
+  def players_ready?
+    true if players[0].ready && players[1].ready
+
+    false
   end
 end

@@ -14,7 +14,9 @@
         <div id="<%= @game.id %>_waiting_message">
             <%= render 'waitingMessage', :game => @game %>
         </div>
-        <%= render 'startNewGameBtn', :game => @game %>
+        <div id="<%= @game.id %>_start_new_round_btn">
+            <%= render 'startNewRoundBtn', :game => @game %>
+        </div>
     </div>
     <!--  main game area  -->
     <div class="flex">
