@@ -6,5 +6,9 @@ input:checked ~ .dot {
 
   .body {
     /* mobile viewport bug fix */
+    min-height: -webkit-fill-available;
+  }
+
+  html {
     height: -webkit-fill-available;
   }
