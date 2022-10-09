@@ -4,7 +4,7 @@
         <div class="mr-3 text-white text-sm font-light">
             Move the toggle to mark yourself as ready ->
         </div>
-        <input type="checkbox" id="1" data-playerReady-target="checkbox" data-action="change->playerReady#changeStatus" data-player-id="<%= session[:player_id] %>">
+        <input type="checkbox" id="1" data-playerReady-target="checkbox" data-action="change->playerReady#changeStatus" data-player-id="<%= session[:player_id] || player %>">
         <label for="1">
           <span></span>
         </label>

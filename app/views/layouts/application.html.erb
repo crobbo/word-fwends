@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <script>
-      window.addEventListener('resize', () => {
-        measure.style.setProperty('--height', `${window.innerHeight}px`);
-      });
-    </script>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -18,7 +13,7 @@
 
   <body class="bg-gray-800">
     <% flash.each do |type, msg| %>
-      <div class="text-white z-50 absolute">
+      <div class="text-white">
         <%= msg  %>
       </div>
     <% end %>

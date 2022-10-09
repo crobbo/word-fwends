@@ -419,4 +419,13 @@ RSpec.describe Game, type: :model do
       expect(game.check_player_two?('ca8a99de-2fa1-4c09-be8c-d6e5db0864a6')).to eq(false)
     end
   end
+
+  context 'check if players are ready to start next round' do
+    it 'returns true when both players are ready' do
+      game = Game.create(word: 'mists', id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a')
+      Player.create(name: 'Bob', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 1, ready: true)
+      Player.create(name: 'Sue', game_id: 'ef1cc52f-f4fb-46ed-a017-37569bd14c9a', player_no: 2, ready: true)
+      expect(game.players_ready?).to eq(true)
+    end
+  end
 end

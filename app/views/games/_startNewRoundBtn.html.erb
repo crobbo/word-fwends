@@ -1,7 +1,7 @@
 <% if game.over? && session[:player_id] == game.find_player(game.active_player).id %>
     <div class="flex justify-center items-center">
         <div class="my-5 w-full sm:w-2/5 md:w-1/5">
-        <%= button_to 'Begin Next Round', game_path(game), method: :patch, class: 
+        <%= button_to 'Begin Next Round', game_path(game), method: :delete, class: 
                                                                                     "bg-pink-500
                                                                                     hover:bg-pink-700
                                                                                     text-sm
@@ -11,7 +11,7 @@
                                                                                     rounded-full" %>
         </div>
     </div>
-<% elsif game.over? && session[:player_id] != game.find_player(game.active_player).id && game.players_ready? %>
+<% elsif game.over? && session[:player_id] != game.find_player(game.active_player).id %>
     <div class="flex justify-center items-center">
         <div class="my-5 w-full sm:w-2/5 md:w-1/5">
             <span class="text-sm font-light"><%= game.find_player(game.active_player).name.capitalize %> started the new round!</span>

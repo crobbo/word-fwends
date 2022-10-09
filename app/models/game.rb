@@ -34,7 +34,7 @@ class Game < ApplicationRecord
   def broadcast_player_ready
     broadcast_update_to [self, :guesses], target: "#{id}_player_ready",
                                             partial: 'games/playerReady',
-                                            locals:  { game: self }
+                                            locals:  { game: self, player: find_player(active_player == 1 ? 2 : 1).id }
   end
 
   def broadcast_waiting_message
@@ -178,10 +178,14 @@ class Game < ApplicationRecord
     30.times do |i|
       guesses.create(value: '', row: guess_no)
     end
+    players.each do |player|
+      player.ready = false
+      player.save
+    end
   end
 
   def players_ready?
-    true if players[0].ready && players[1].ready
+    return true if players[0].ready && players[1].ready
 
     false
   end

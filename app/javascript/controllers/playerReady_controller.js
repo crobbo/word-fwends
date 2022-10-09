@@ -7,7 +7,8 @@ export default class extends Controller {
   initialize() {
   }
 
-  async changeStatus () {
+  async changeStatus (){
+    console.log("method called")
     const playerId = this.checkboxTarget.dataset.playerId
     const status = this.checkboxTarget.checked
     const request = new FetchRequest('patch', `/players/${playerId}/status`, { body: JSON.stringify({ status: status }) })

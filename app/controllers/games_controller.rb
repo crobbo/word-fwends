@@ -34,12 +34,8 @@ class GamesController < ApplicationController
   end
 
   def update
-    if @game.over?
-      @game.next_round
-    else
-      @game.guess_no += 1
-      @game.update(game_params)
-    end
+    @game.guess_no += 1
+    @game.update(game_params)
     respond_to do |format|
       if @game.save
         @game.check_word?
@@ -53,6 +49,20 @@ class GamesController < ApplicationController
   end
 
   def edit
+  end
+
+  def destroy
+    if @game.over? && @game.players_ready?
+      @game.broadcast_start_new_round_btn
+      @game.next_round
+      respond_to do |format|
+        if @game.save
+          format.html { redirect_to @game }
+        else
+          format.html { render :show, status: :unprocessable_entity, notice: 'Waiting for opponent to be ready' }
+        end
+      end
+    end
   end
 
   private
