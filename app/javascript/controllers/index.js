@@ -9,3 +9,6 @@ application.register("input", InputController)
 
 import KeyboardController from "./keyboard_controller"
 application.register("keyboard", KeyboardController)
+
+import PlayerReadyController from "./playerReady_controller"
+application.register("playerReady", PlayerReadyController)

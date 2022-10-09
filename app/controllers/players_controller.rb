@@ -15,6 +15,14 @@ class PlayersController < ApplicationController
     end
   end
 
+  def status
+    if session[:player_id] == params[:player_id]
+      @player = Player.find(params[:player_id])
+      @player.update(ready: params[:status])
+      @player.save
+    end
+  end
+
   private
 
   def set_game
@@ -22,6 +30,6 @@ class PlayersController < ApplicationController
   end
 
   def player_params
-    params.require(:player).permit(:id, :name, :game_id)
+    params.require(:player).permit(:id, :name, :game_id, :status)
   end
 end
