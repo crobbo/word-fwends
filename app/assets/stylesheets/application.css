@@ -96,11 +96,6 @@ input:checked ~ .dot {
     height: -webkit-fill-available;
   }
 
-  /* .custom-height {
-    min-height: 100vh;
-    height: -webkit-fill-available; 
+  input[type="button"]{ 
+    touch-action: manipulation; 
   }
-
-  html {
-    min-height: -webkit-fill-available;
-  } */
