@@ -12,3 +12,6 @@ application.register("keyboard", KeyboardController)
 
 import PlayerReadyController from "./playerReady_controller"
 application.register("playerReady", PlayerReadyController)
+
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)
