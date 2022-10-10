@@ -1,4 +1,4 @@
-<%= form_with model: @game, method: :patch, data: { turbo:"false", input_target: "form"}, html: { autocomplete: "off" }, 
+<%= form_with model: @game, method: :patch, data: { turbo:"false", input_target: "form" }, html: { autocomplete: "off" }, 
 id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto mt-2" do |form| %>
     <%= form.fields_for :guesses, @game.guesses.order(:created_at) do |ff| %>
         <% if ff.object.value != '' %>

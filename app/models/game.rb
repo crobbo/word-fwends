@@ -1,4 +1,4 @@
-class Game < ApplicationRecord
+class Game < ApplicationRecord  
   has_many :guesses, foreign_key: 'game_id', dependent: :destroy
   has_many :players, foreign_key: 'game_id', dependent: :destroy
 
@@ -8,7 +8,15 @@ class Game < ApplicationRecord
     Spicy::Proton.noun(min: 5, max: 5)
   end
 
+  def spell_check(guess)
+    response = Faraday.get("https://api.dictionaryapi.dev/api/v2/entries/en/#{guess}")
+    return true if response.status == 200
+    return false if response.status == 404
+  end
+
   def check_word?
+    return false unless spell_check(last_guess_string(last_guess))
+
     last_guess.each_with_index do |guess, index|
       guess.row = guess_no
       guess.result = check_letter(guess.value, index, guess.row)
@@ -55,25 +63,22 @@ class Game < ApplicationRecord
                                           locals:  { game: self }
   end
 
-  # def broadcast_word
-  #   if over? || win?
-  #     broadcast_update_to [self, :guesses], target: "#{id}_word_section",
-  #                                            partial: 'games/word',
-  #                                            locals:  { game: self }
-  #   end
-  # end
-
-  # def broadcast_win
-  #   if over? || win?
-  #     broadcast_update_to [self, :guesses], target: "#{id}_win_section",
-  #                                            partial: 'games/win',
-  #                                            locals:  { game: self }
-  #   end
-  # end
-
   def last_guess
     arr = guesses.sort_by &:updated_at
     arr.last(5)
+  end
+
+  def last_guess_string(guesses)
+    guesses.map(&:value).join
+  end
+
+  def clear_last_guess
+    last_guess.each do |guess|
+      guess.value = ''
+      guess.row = nil
+      guess.save
+    end
+    self.guess_no -= 1
   end
 
   def check_letter(guess, index, row)

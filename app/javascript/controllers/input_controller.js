@@ -57,6 +57,7 @@ export default class extends Controller {
   }
 
   submitForm() {
+    // this.formTartget.getElementsByTagName('input')
     let count = this.inputBoxTargets.filter(box => box.value != '').length
     if(count == 5){
       this.formTarget.focus()

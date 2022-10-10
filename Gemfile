@@ -85,3 +85,4 @@ gem "tailwindcss-rails", "~> 2.0"
 gem "ruby-lsp", "~> 0.2.1", :group => :development
 
 gem 'spicy-proton', '~> 2.1', '>= 2.1.14'
+gem 'faraday'

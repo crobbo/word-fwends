@@ -38,9 +38,15 @@ class GamesController < ApplicationController
     @game.update(game_params)
     respond_to do |format|
       if @game.save
-        @game.check_word?
+        if @game.check_word?
+          message = ''
+        else
+          message = 'Word does not exists'
+          @game.clear_last_guess
+          @game.save
+        end
         @game.broadcastables
-        format.html { redirect_to @game }
+        format.html { redirect_to @game, notice: message }
         # format.turbo_stream { render turbo_stream: turbo_stream.replace('#{dom_id(@game)}', partial: 'games/form') }
       else
         format.html { render :new, status: :unprocessable_entity }
