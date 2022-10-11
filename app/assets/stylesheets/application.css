@@ -86,6 +86,7 @@
   body {
     min-height: 100vh;
     touch-action: manipulation; 
+    background-color: yellow;
   }
 
   .custom-height {
