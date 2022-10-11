@@ -3,6 +3,7 @@ input:checked ~ .dot {
     transform: translateX(100%);
     background-color: #48bb78;
   } */
+
   :root {
     --white: #e8e9ed;
     --gray: #434257;
@@ -90,6 +91,7 @@ input:checked ~ .dot {
 
   body {
     min-height: 100vh;
+    touch-action: manipulation; 
   }
 
   .custom-height {
