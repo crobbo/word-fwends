@@ -85,8 +85,8 @@
     background-size: 14px 14px;
   }
   
-  html {
-    /* touch-action: manipulation; */
+  .key_input {
+    touch-action: manipulation;
   }
    
   body {
