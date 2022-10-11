@@ -7,8 +7,10 @@ export default class extends Controller {
   }
   
   onscreenKey(e) {
+    console.log(e.type)
     let asciiCode = this.processOnscreenKey(e)
     this.dispatch("onscreenKey", { detail: { code: asciiCode} })
+    e.stopImmediatePropagation()
   }
 
   processOnscreenKey(e) {

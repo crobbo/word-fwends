@@ -1,4 +1,4 @@
-<%= tag.button id:"#{game.id}_key_#{letter}", data: {action: "click->keyboard#onscreenKey"}, 
+<%= tag.button id:"#{game.id}_key_#{letter}", data: {action: "touchstart->keyboard#onscreenKey", action: "click->keyboard#onscreenKey"}, 
     class: ["
             h-14 w-14 
             rounded-sm border 
