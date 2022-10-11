@@ -85,7 +85,10 @@
     background-size: 14px 14px;
   }
   
-
+  html {
+    touch-action: manipulation;
+  }
+   
   body {
     min-height: 100vh;
     touch-action: manipulation; 
