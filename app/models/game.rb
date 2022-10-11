@@ -144,8 +144,7 @@ class Game < ApplicationRecord
   end
 
   def over?
-    return true if guess_no > 6 || win? # && last_guess.all? { |guess| guess.result == 'miss' || guess.result == 'occurs' }
-
+    return true if guess_no > 6 || win?
     false
   end
 
