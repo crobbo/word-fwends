@@ -86,7 +86,7 @@
   }
   
   .key_input {
-    touch-action: manipulation;
+    /* touch-action: manipulation; */
   }
    
   body {
