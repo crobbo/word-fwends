@@ -21,7 +21,7 @@
                         <div class="bg-gray-600 p-4 rounded text-gray-300 text-xl w-full h-10 whitespace-nowrap
                                       flex justify-start items-center overflow-hidden hover:outline hover:outline-4
                                         hover:outline-indigo-500 hover:cursor-pointer" data-action="click->clipboard#copy" data-clipboard-target="source">
-                          <%= request.original_url + '/games/' + @game.id + "?player_two=#{@game.find_player(2).id}" %>
+                          <%= request.original_url + "?player_two=#{@game.find_player(2).id}" %>
                         </div>
                         <div class="flex flex-col justify-center items-center" data-action="click->clipboard#copy">
                             <span class="material-icons text-white ml-2 
