@@ -14,6 +14,7 @@ export default class extends Controller {
     if(completeGuess) {
       arr[arr.length - 1].focus() 
     } else {
+      console.log(this.inputBoxTargets.length)
       this.inputBoxTargets.filter(box => box.value == '')[0].focus()
     }
   }
