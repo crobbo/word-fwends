@@ -47,7 +47,6 @@ class GamesController < ApplicationController
         end
         @game.broadcastables
         format.html { redirect_to @game, notice: message }
-        # format.turbo_stream { render turbo_stream: turbo_stream.replace('#{dom_id(@game)}', partial: 'games/form') }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
