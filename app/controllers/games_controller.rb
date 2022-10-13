@@ -25,7 +25,7 @@ class GamesController < ApplicationController
     Player.create(name: '', game_id: @game.id, player_no: 1)
     Player.create(name: '', game_id: @game.id, player_no: 2)
 
-    30.times do |i|
+    10.times do |i|
       @game.guesses.create(value: '', row: @game.guess_no)
     end
 

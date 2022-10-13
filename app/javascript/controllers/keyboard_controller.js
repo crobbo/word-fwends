@@ -13,6 +13,7 @@ export default class extends Controller {
   }
   
   onscreenKey(e) {
+    e.preventDefault()
     let asciiCode = this.processOnscreenKey(e)
     this.keydown(asciiCode)
     // this.dispatch("onscreenKey", { detail: { code: asciiCode}})
