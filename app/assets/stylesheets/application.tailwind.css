@@ -9,7 +9,12 @@
     --green: #00d084;
     --pink: #ff4b77;
   }
-  
+
+  body {
+    min-height: 100vh;
+    touch-action: manipulation; 
+    }
+
   label {
     cursor: pointer;
   }
@@ -84,20 +89,4 @@
     background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/checkmark-switcher.svg);
     background-size: 14px 14px;
   }
-  
-  .key_input {
-    /* touch-action: manipulation; */
-  }
    
-  body {
-    min-height: 100vh;
-    /* touch-action: manipulation;  */
-    }
-
-  .custom-height {
-    height: -webkit-fill-available;
-  }
-
-  /* input[type="button"]{ 
-    touch-action: manipulation; 
-  } */
