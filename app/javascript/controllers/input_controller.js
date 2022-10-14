@@ -6,20 +6,22 @@ export default class extends Controller {
   connect() {
   }
 
-  // const keys = document.querySelectorAll('.key');
-  // const boardItems = document.querySelectorAll('.item-input');
-
-  // keys.forEach((item) => {
-  //     item.addEventListener('click', e => {
-  //         item.innerText == 'DEL' ? backspace() : onscreenKeyboard(item.innerText)
-  //     })
-  // })
-
   virtualKey(e) {
-    if (e.srcElement.innerText == 'DEL') { return this.backspace() }
     const emptyGuesses = this.inputBoxTargets.filter(item => item.value == '')
     const guesses = this.inputBoxTargets.filter(item => item.value != '')
-    if (guesses.length < 5) { emptyGuesses[0].value = e.srcElement.innerText }
+    if (e.srcElement.innerText == 'DEL') { return this.backspace() }
+    if (e.srcElement.innerText == 'ENTER' && guesses.length == 5 ) { return this.formTarget.submit() }
+    if (guesses.length < 5 && e.srcElement.innerText != 'ENTER' ) { emptyGuesses[0].value = e.srcElement.innerText }
+  }
+
+  hardwareKey(e) {
+    const emptyGuesses = this.inputBoxTargets.filter(item => item.value == '')
+    const guesses = this.inputBoxTargets.filter(item => item.value != '')
+    if ((64 < e.keyCode && e.keyCode < 91) && guesses.length < 5 ) {
+      emptyGuesses[0].value = e.key
+    }
+    if (e.keyCode == 8) { return this.backspace() }
+    if (e.keyCode == 13 && guesses.length == 5 ) { return this.formTarget.submit() }
   }
 
   backspace() {
