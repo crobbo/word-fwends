@@ -1,4 +1,4 @@
-<%= form_with model: @game, method: :patch, data: {keyboard_target: "form" }, html: { autocomplete: "off" }, 
+<%= form_with model: @game, method: :patch, data: {input_target: "form" }, html: { autocomplete: "off" }, 
 id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 gap-y-2 gap-x-2 max-w-md mx-auto mt-2" do |form| %>
     <%= form.fields_for :guesses, @game.guesses.order(:created_at) do |ff| %>
         <% if ff.object.value != '' %>
@@ -22,8 +22,7 @@ id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 
         <% elsif session[:player_id] != @game.find_player(@game.active_player).id && ff.object.value == '' %>
             <div id="input_<%= dom_id(ff.object)%>" class="w-12 h-12 sm:w-14 sm:h-14">
                 <%= tag.div :value, class: ["text-center
-                                             uppercase
-                                             text-3xl
+                                             uppercaseinput_target
                                              text-white
                                              bg-slate-800
                                              border
@@ -53,7 +52,7 @@ id: dom_id(@game), class: "grid justify-center justify-items-center grid-cols-5 
                                                    "bg-green-400": ff.object.result == 'match',
                                                    "bg-orange-400": ff.object.result == 'occurs',
                                                    "bg-gray-400": ff.object.result == 'miss' ], 
-                                                   data: {keyboard_target: 'inputBox'}, readonly: "true", maxlength: "1" %>
+                                                   data: {input_target: 'inputBox'}, autofocus: "true", readonly: "true", maxlength: "1" %>
             </div>
         <% end %>
     <% end %> 

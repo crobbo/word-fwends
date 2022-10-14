@@ -4,8 +4,8 @@
 
 import { application } from "./application"
 
-import KeyboardController from "./keyboard_controller"
-application.register("keyboard", KeyboardController)
+import InputController from "./input_controller"
+application.register("input", InputController)
 
 import PlayerReadyController from "./playerReady_controller"
 application.register("playerReady", PlayerReadyController)
