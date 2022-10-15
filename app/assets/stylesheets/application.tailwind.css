@@ -14,7 +14,8 @@
 
   body {
     min-height: 100vh;
-    touch-action: manipulation; 
+    touch-action: manipulation;
+    overflow: hidden;
   }
 
   .game-content {
