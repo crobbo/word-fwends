@@ -35,7 +35,7 @@ class GamesController < ApplicationController
 
   def update
     @game.guess_no += 1
-    @game.update(game_params)
+    @game.update(game_params) # letters need to be lower case
     respond_to do |format|
       if @game.save
         if @game.check_word?

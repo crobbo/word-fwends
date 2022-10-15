@@ -1,6 +1,6 @@
 
-<!-- Player info / result section -->
-<div class="my-5 flex flex-col justify-center text-center text-3xl text-white">
+<!-- Game info / result section -->
+<section class="game-info flex flex-col justify-center text-center text-3xl text-white">
     <div class="my-5 font-bold">
         <span class="text-orange-500"><%= @game.find_player(@game.active_player).name.capitalize %></span>
         <span> is playing 🔥</span>
@@ -17,9 +17,9 @@
     <div id="<%= @game.id %>_start_new_round_btn">
         <%= render 'startNewRoundBtn', :game => @game %>
     </div>
-</div>
+</section>
 
-<div class="flex flex-col justify-between md:justify-start h-full" data-controller="input" data-action="keyup->input#hardwareKey">
+<section class="game-content flex flex-col justify-between md:justify-start" data-controller="input display" data-action="keyup->input#hardwareKey resize@window->display#gameContentHeight resize@window->display#gameInfoHeight" data-input-target="gameContent">
     <!--  main game area  -->
     <div class="flex">
 
@@ -36,13 +36,12 @@
        </div>
     </div>
 
-    <div class="flex items-center md:relative justify-center w-full mt-20">
+    <div class="flex items-center md:relative justify-center w-full mt-5 md:mt-10">
         <div  id="<%= @game.id %>_keyboard"  class="w-full">
             <%= render "keyboard", :game => @game %>
         </div>
     </div>
-
-</div>
+</section>
 
 <!-- Game setup / URL share screens -->
 <% if !@game.ready %>

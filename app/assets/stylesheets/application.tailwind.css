@@ -8,12 +8,22 @@
     --blue: #18172c;
     --green: #00d084;
     --pink: #ff4b77;
+    --game-content: 100%;
+    --game-info: 100%;
   }
 
   body {
     min-height: 100vh;
     touch-action: manipulation; 
-    }
+  }
+
+  .game-content {
+    min-height: var(--game-content);
+  }
+
+  .game-info {
+    min-height: var(--game-info);
+  }
 
   label {
     cursor: pointer;

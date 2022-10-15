@@ -12,3 +12,6 @@ application.register("playerReady", PlayerReadyController)
 
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
+
+import DisplayController from "./display_controller"
+application.register("display", DisplayController)
