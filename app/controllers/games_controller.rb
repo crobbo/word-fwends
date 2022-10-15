@@ -37,19 +37,15 @@ class GamesController < ApplicationController
     @game.guess_no += 1
     @game.update(game_params) # letters need to be lower case
     respond_to do |format|
-      if @game.save
-        if @game.check_word?
-          message = ''
-        else
-          message = 'Word does not exists'
-          @game.clear_last_guess
-          @game.save
-        end
+      if @game.check_word?
+        @game.save
         @game.broadcastables
-        format.html { redirect_to @game, notice: message }
-        # format.turbo_stream { render turbo_stream: turbo_stream.update("flash", partial: "shared/flash")}
+        format.html { redirect_to @game }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        @game.clear_last_guess
+        @game.save
+        message = 'Word does not exists'
+        format.html { redirect_to @game, notice: message }
       end
     end
   end

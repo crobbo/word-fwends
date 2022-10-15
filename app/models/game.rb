@@ -25,6 +25,7 @@ class Game < ApplicationRecord
   end
 
   def broadcastables
+    broadcast_guesses
     if over?
       broadcast_result
       broadcast_player_ready
@@ -62,6 +63,16 @@ class Game < ApplicationRecord
     broadcast_update_to [self, :guesses], target: "#{id}_keyboard",
                                           partial: 'games/keyboard',
                                           locals:  { game: self }
+  end
+
+  def broadcast_guesses
+    last_guess.each do |guess|
+      broadcast_update_to [self, :guesses], target: "input_guess_#{guess.id}", partial: 'guesses/guess', locals: { guess: guess }
+
+      broadcast_replace_to [self, :guesses], target: "#{self.id}_key_#{guess.value}",
+                                             partial: 'games/key',
+                                             locals: { guess: guess, game: self, letter: guess.value }
+    end
   end
 
   def last_guess
