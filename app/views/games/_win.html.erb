@@ -1,5 +1,5 @@
-<% if game.win? %>
+<% if game.win? && session[:player_id] == game.find_player(game.active_player).id %>
     <span class="text-green-500">You Win!</span>
-<% elsif game.over? && session[:player_id] == game.find_player(game.active_player).id%>
+<% elsif game.over? && session[:player_id] == game.find_player(game.active_player).id %>
     <span class="text-cyan-500 text-xl">Better luck next time <%= game.find_player(game.active_player).name.capitalize %>!</span>
 <% end %>

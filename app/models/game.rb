@@ -52,7 +52,8 @@ class Game < ApplicationRecord
   end
 
   def broadcast_start_new_round_btn
-    broadcast_update_to [self, :guesses], target: "#{id}_start_new_round_btn",
+    playerId = find_player(active_player == 1 ? 2 : 1).id
+    broadcast_update_to [self, :guesses], target: "#{playerId}_start_new_round_btn",
                                           partial: 'games/startNewRoundBtn',
                                           locals:  { game: self }
   end
