@@ -17,6 +17,7 @@
     <div id="<%= @game.id %>_start_new_round_btn">
         <%= render 'startNewRoundBtn', :game => @game %>
     </div>
+
 </section>
 
 <section class="game-content flex flex-col justify-between md:justify-start" data-controller="input display" data-action="keyup->input#hardwareKey resize@window->display#gameContentHeight resize@window->display#gameInfoHeight" data-input-target="gameContent">

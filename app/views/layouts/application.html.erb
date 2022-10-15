@@ -11,15 +11,10 @@
   </head>
 
   <body class="bg-gray-800">
-    <% flash.each do |type, msg| %>
-      <div class="text-white">
-        <%= msg  %>
-      </div>
-    <% end %>
-
-    <main class="">
-      <%= yield %>
-    </main>
+      <%= render 'shared/flash' %>
+      <main class="">
+        <%= yield %>
+      </main>
    
   </body>
 
@@ -27,5 +22,6 @@
     let root = document.documentElement
     root.style.setProperty('--game-content', `${window.innerHeight * 0.8}px`)
     root.style.setProperty('--game-info', `${window.innerHeight * 0.2}px`)
+    root.style.setProperty('--app-height', `${window.innerHeight * 0.2}px`)
   </script>
 </html>
