@@ -14,7 +14,7 @@
     <div id="<%= @game.id %>_waiting_message">
         <%= render 'waitingMessage', :game => @game %>
     </div>
-    <div id="<%= session[:player_id] %>_start_new_round_btn">
+    <div id="<%= session[:player_id] %>_start_new_round_btn" class="flex justify-center">
         <%= render 'startNewRoundBtn', :game => @game %>
     </div>
 
