@@ -39,6 +39,7 @@ class GamesController < ApplicationController
     respond_to do |format|
       if @game.check_word?
         @game.save
+        @game.calc_score(@game.find_player(@game.active_player)) if @game.over?
         @game.broadcastables
         format.html { redirect_to @game }
       else

@@ -10,6 +10,7 @@
     --pink: #ff4b77;
     --game-content: 100%;
     --game-info: 100%;
+    --scorebaord: 100%;
   }
 
   body {
@@ -17,13 +18,17 @@
     touch-action: manipulation;
     overflow: hidden;
   }
-
+  
   .game-content {
     min-height: var(--game-content);
   }
 
   .game-info {
     min-height: var(--game-info);
+  }
+
+  .scoreboard {
+    min-height: var(--scoreboard);
   }
 
   label {

@@ -205,4 +205,20 @@ class Game < ApplicationRecord
 
     false
   end
+
+  def calc_score(player)
+    case self.guess_no
+    when 2
+      player.score += 80
+    when 3
+      player.score += 60
+    when 4
+      player.score += 40
+    when 5
+      player.score += 20
+    when 6
+      player.score += 10
+    end
+    player.save
+  end
 end

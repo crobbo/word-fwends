@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["gameContent", "gameInfo", "flash"]
+  static targets = ["gameContent", "gameInfo", "flash", "scoreboard"]
 
   initialize() {
   }
@@ -16,6 +16,23 @@ export default class extends Controller {
     root.style.setProperty('--game-info', `${window.innerHeight * 0.2}px`)
   } 
 
+  scoreboardHeight(){
+    let root = document.documentElement
+    root.style.setProperty('--scoreboard', `${window.innerHeight2}px`)
+  } 
+
+  showScoreboard() {
+    console.log("showScoreboard")
+    const scoreboard = document.querySelector(".scoreboard")
+    scoreboard.classList.remove("hidden")
+  }
+
+  hideScoreboard() {
+    const scoreboard = document.querySelector(".scoreboard")
+    scoreboard.classList.add("hidden")
+  }
+
+  
   hide() {
     setTimeout(() => {
       this.flashTarget.classList.add("hidden")

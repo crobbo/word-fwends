@@ -1,0 +1,19 @@
+<div class="scoreboard absolute z-50 opacity-95 top-0 w-full bg-black hidden" data-action="resize->display#scoreboardHeight">
+    <div class="relative top-0 left-0 m-8 text-white text-right text-4xl cursor-pointer" data-action="click->display#hideScoreboard">X</div>
+    <div class="relative text-white flex flex-col justify-start items-center h-screen">
+        <h1 class="text-pink-500 text-3xl font-bold mt-10">Scoreboard</h1>
+        <div class="flex justify-evenly mt-5">
+            <div>
+                <h2 class="text-white px-4 text-2xl font-extralight">
+                    <%= @game.find_player(1).name.capitalize %> <span class="ml-3"><%= @game.find_player(1).score %></span>
+                </h2>
+            </div>
+            <div class="border-r-2 border-pink-500"></div>
+            <div>
+                <h2 class="text-white px-4 text-2xl font-extralight">
+                 <span class="mr-3"><%= @game.find_player(2).score %></span> <%= @game.find_player(2).name.capitalize %>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>

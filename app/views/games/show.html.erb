@@ -17,6 +17,15 @@
     <div id="<%= session[:player_id] %>_start_new_round_btn" class="flex justify-center">
         <%= render 'startNewRoundBtn', :game => @game %>
     </div>
+    <div id="<%= @game.id %>_scoreboard" class="flex justify-center">
+        <div class="flex justify-center items-center mb-5">
+            <div>
+                <div class="bg-gray-700 hover:bg-gray-700 text-sm text-white font-bold py-2 px-4 rounded-full cursor-pointer" data-controller="display" data-action="click->display#showScoreboard">
+                    Scoreboard
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>
 
@@ -42,6 +51,10 @@
             <%= render "keyboard", :game => @game %>
         </div>
     </div>
+</section>
+
+<section data-controller="display">
+    <%= render 'games/scoreboard', :game => @game %>
 </section>
 
 <!-- Game setup / URL share screens -->
