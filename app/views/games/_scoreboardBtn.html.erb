@@ -1,0 +1,9 @@
+<% if game.over? %>
+    <div class="flex justify-center items-center my-5">
+        <div>
+            <div class="bg-gray-700 hover:bg-gray-700 text-sm text-white font-bold py-2 px-4 rounded-full cursor-pointer" data-controller="display" data-action="click->display#showScoreboard">
+                View Score
+            </div>
+        </div>
+    </div>
+<% end %>

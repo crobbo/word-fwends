@@ -14,19 +14,15 @@
     <div id="<%= @game.id %>_waiting_message">
         <%= render 'waitingMessage', :game => @game %>
     </div>
-    <div id="<%= session[:player_id] %>_start_new_round_btn" class="flex justify-center">
+<div class="flex justify-center items-center">
+    <div id="<%= session[:player_id] %>_start_new_round_btn" class="flex justify-center items-center">
         <%= render 'startNewRoundBtn', :game => @game %>
     </div>
-    <div id="<%= @game.id %>_scoreboard" class="flex justify-center">
-        <div class="flex justify-center items-center mb-5">
-            <div>
-                <div class="bg-gray-700 hover:bg-gray-700 text-sm text-white font-bold py-2 px-4 rounded-full cursor-pointer" data-controller="display" data-action="click->display#showScoreboard">
-                    Scoreboard
-                </div>
-            </div>
-        </div>
+    <div id="<%= @game.id %>_scoreboard" class="flex justify-center items-center">
+        <%= render 'scoreboardBtn', :game => @game %>
     </div>
 
+</div>
 </section>
 
 <section class="game-content flex flex-col justify-between md:justify-start" data-controller="input display" data-action="keyup->input#hardwareKey resize@window->display#gameContentHeight resize@window->display#gameInfoHeight" data-input-target="gameContent">
