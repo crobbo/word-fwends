@@ -7,11 +7,17 @@ export default class extends Controller {
   }
 
   virtualKey(e) {
+    this.keyAnimation(e.target);
     const emptyGuesses = this.inputBoxTargets.filter(item => item.value == '')
     const guesses = this.inputBoxTargets.filter(item => item.value != '')
     if (e.srcElement.innerText == 'DEL') { return this.backspace() }
     if (e.srcElement.innerText == 'ENTER' && guesses.length == 5 ) { return this.formTarget.requestSubmit() }
     if (guesses.length < 5 && e.srcElement.innerText != 'ENTER' ) { emptyGuesses[0].value = e.srcElement.innerText.toLowerCase() }
+  }
+
+  keyAnimation(key) {
+    key.classList.add('w-16', 'h-16', 'bg-gray-200', 'text-gray-800')
+    setTimeout(function(){ key.classList.remove('w-16', 'h-16', 'bg-gray-200','text-gray-800'); }, 100);
   }
 
   hardwareKey(e) {
