@@ -4,13 +4,13 @@
         <div class="flex justify-evenly mt-5 w-full">
             <div class="w-1/2 text-right">
                 <h2 class="text-white px-4 text-2xl font-extralight">
-                    <%= @game.find_player(1).name.capitalize %> <span class="ml-3 font-extrabold"><%= @game.find_player(1).score %></span>
+                    <%= game.find_player(1).name.capitalize %> <span class="ml-3 font-extrabold"><%= game.find_player(1).score %></span>
                 </h2>
             </div>
             <div class="border-r-2 border-pink-500"></div>
             <div class="w-1/2">
                 <h2 class="text-white px-4 text-2xl font-extralight">
-                 <span class="mr-3 font-extrabold"><%= @game.find_player(2).score %></span> <%= @game.find_player(2).name.capitalize %>
+                 <span class="mr-3 font-extrabold"><%= game.find_player(2).score %></span> <%= game.find_player(2).name.capitalize %>
                 </h2>
             </div>
         </div>

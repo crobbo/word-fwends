@@ -1,4 +1,3 @@
-
 <!-- Game info / result section -->
 <section class="game-info flex flex-col justify-center text-center text-3xl text-white">
     <div class="my-5 font-bold">
@@ -18,7 +17,7 @@
     <div id="<%= session[:player_id] %>_start_new_round_btn" class="flex justify-center items-center">
         <%= render 'startNewRoundBtn', :game => @game %>
     </div>
-    <div id="<%= @game.id %>_scoreboard" class="flex justify-center items-center">
+    <div id="<%= @game.id %>_scoreboardBtn" class="flex justify-center items-center">
         <%= render 'scoreboardBtn', :game => @game %>
     </div>
 
@@ -50,10 +49,12 @@
 </section>
 
 <section data-controller="display">
-    <%= render 'games/scoreboard', :game => @game %>
+    <div id="<%= @game.id %>_scoreboard" class="">
+        <%= render 'games/scoreboard', :game => @game %>
+    </div>
 </section>
 
 <!-- Game setup / URL share screens -->
 <% if !@game.ready %>
-    <%= render "gameSetup", :game => @game %>
+        <%= render "gameSetup", :game => @game %>
 <% end %>

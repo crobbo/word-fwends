@@ -31,6 +31,7 @@ class Game < ApplicationRecord
       broadcast_player_ready
       broadcast_waiting_message
       broadcast_hide_keyboard
+      broadcast_scoreboard
     end
   end
 
@@ -53,8 +54,8 @@ class Game < ApplicationRecord
   end
 
   def broadcast_start_new_round_btn
-    playerId = find_player(active_player == 1 ? 2 : 1).id
-    broadcast_update_to [self, :guesses], target: "#{playerId}_start_new_round_btn",
+    player_id = find_player(active_player == 1 ? 2 : 1).id
+    broadcast_update_to [self, :guesses], target: "#{player_id}_start_new_round_btn",
                                           partial: 'games/startNewRoundBtn',
                                           locals:  { game: self }
   end
@@ -62,6 +63,16 @@ class Game < ApplicationRecord
   def broadcast_hide_keyboard
     broadcast_update_to [self, :guesses], target: "#{id}_keyboard",
                                           partial: 'games/keyboard',
+                                          locals:  { game: self }
+  end
+
+  def broadcast_scoreboard
+    broadcast_update_to [self, :guesses], target: "#{id}_scoreboard",
+                                          partial: 'games/scoreboard',
+                                          locals:  { game: self }
+
+    broadcast_update_to [self, :guesses], target: "#{id}_scoreboardBtn",
+                                          partial: 'games/scoreboardBtn',
                                           locals:  { game: self }
   end
 
