@@ -17,10 +17,10 @@ class Game < ApplicationRecord
   def check_word?
     return false unless spell_check(last_guess_string(last_guess))
 
-    last_guess.each_with_index do |guess, index|
-      guess.row = guess_no
-      guess.result = check_letter(guess.value, index, guess.row)
-      guess.save
+    last_guess.each_with_index do |letter, index|
+      letter.row = guess_no
+      letter.result = check_letter(letter.value, index, letter.row)
+      letter.save
     end
   end
 
@@ -96,43 +96,43 @@ class Game < ApplicationRecord
   end
 
   def clear_last_guess
-    last_guess.each do |guess|
-      guess.value = ''
-      guess.row = nil
-      guess.save
+    last_guess.each do |letter|
+      letter.value = ''
+      letter.row = nil
+      letter.save
     end
     self.guess_no -= 1
   end
 
-  def check_letter(guess, index, row)
-    if check_exact_match?(guess, index)
+  def check_letter(letter, index, row)
+    if check_exact_match?(letter, index)
       'match'
-    elsif word.include?(guess)
-      check_partial_match(guess, row)
+    elsif word.include?(letter)
+      check_partial_match(letter, row)
     else
       'miss'
     end
   end
 
-  def letter_count(guess)
+  def letter_count(letter)
     count = 0
-    word.each_char { |letter| if letter == guess then count += 1 end }
+    word.each_char { |char| if char == letter then count += 1 end }
     count
   end
 
-  def prev_guess_count(guess, row)
+  def prev_guess_count(letter, row)
     return 0 if guesses.count.zero?
 
-    guesses.all.where("value = '#{guess.downcase}' AND row = #{row} ").count
+    guesses.all.where("value = '#{letter.downcase}' AND row = #{row} ").count
   end
 
-  def check_exact_match?(guess, index)
-    word[index] == guess
+  def check_exact_match?(letter, index)
+    word[index] == letter
   end
 
-  def check_partial_match(guess, row)
-    occurance = letter_count(guess)
-    guess_total = prev_guess_count(guess, row)
+  def check_partial_match(letter, row)
+    occurance = letter_count(letter)
+    guess_total = prev_guess_count(letter, row)
 
     case occurance
     when 1
@@ -170,7 +170,7 @@ class Game < ApplicationRecord
     return true if guess_no > 6 || win?
     false
   end
-
+   
   def matches?(letter)
     guesses.all.where("value = '#{letter}' AND result = 'match'").count.positive?
   end
@@ -192,6 +192,8 @@ class Game < ApplicationRecord
     return false if id.nil?
 
     players.each do |player|
+      return false if player.player_no == 1 && player.id != id
+      return false if player.player_no == 1 && player.id == id
       return true if player.player_no == 2 && player.id == id
       return false if player.player_no == 2 && player.id != id
     end

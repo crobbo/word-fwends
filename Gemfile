@@ -78,6 +78,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'main'
+  gem 'pry', '~> 0.13.1'
+
 end
 
 gem "tailwindcss-rails", "~> 2.0"
@@ -86,3 +89,5 @@ gem "ruby-lsp", "~> 0.2.1", :group => :development
 
 gem 'spicy-proton', '~> 2.1', '>= 2.1.14'
 gem 'faraday'
+
+gem "factory_bot", "~> 6.2"
