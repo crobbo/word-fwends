@@ -408,4 +408,112 @@ RSpec.describe Game, type: :model do
       end
     end
   end
+
+  describe '#next_round' do
+    before(:each) do
+      @game.active_player = 1
+      @game.guess_no = 6
+      @game.next_round
+    end
+    context 'when game is over' do
+      it 'returns new word' do
+        expect(@game.word).to be_a(String)
+      end
+
+      it 'returns new active player' do
+        expect(@game.active_player).to eq(2)
+      end
+
+      it 'returns new round' do
+        expect(@game.guess_no).to eq(1)
+      end
+    end
+  end
+
+  describe '#players_ready?' do
+    context 'when players are not ready' do
+      it 'returns false' do
+        create(:player, player_no: 1, game_id: @game.id, ready: false)
+        create(:player, player_no: 2, game_id: @game.id, ready: false)
+        expect(@game.players_ready?).to eq(false)
+      end
+
+      it 'returns false' do
+        create(:player, player_no: 1, game_id: @game.id, ready: true)
+        create(:player, player_no: 2, game_id: @game.id, ready: false)
+        expect(@game.players_ready?).to eq(false)
+      end
+
+      it 'returns false' do
+        create(:player, player_no: 1, game_id: @game.id, ready: false)
+        create(:player, player_no: 2, game_id: @game.id, ready: true)
+        expect(@game.players_ready?).to eq(false)
+      end
+    end
+
+    context 'when players are ready' do
+      it 'returns true' do
+        create(:player, player_no: 1, game_id: @game.id, ready: true)
+        create(:player, player_no: 2, game_id: @game.id, ready: true)
+        expect(@game.players_ready?).to eq(true)
+      end
+    end
+  end
+
+  describe '#calc_score' do
+
+    before(:each) do
+      @player = create(:player, game_id: @game.id)
+    end
+
+    it 'returns 150' do
+      @game.guess_no = 2
+      @game.calc_score(@player)
+      expect(@player.score).to eq(150)
+    end
+
+    it 'returns 120' do
+      @game.guess_no = 3
+      @game.calc_score(@player)
+      expect(@player.score).to eq(120)
+    end
+
+    it 'returns 90' do
+      @game.guess_no = 4
+      @game.calc_score(@player)
+      expect(@player.score).to eq(90)
+    end
+
+    it 'returns 60' do
+      @game.guess_no = 5
+      @game.calc_score(@player)
+      expect(@player.score).to eq(60)
+    end
+
+    it 'returns 30' do
+      @game.guess_no = 6
+      @game.calc_score(@player)
+      expect(@player.score).to eq(30)
+    end
+
+    it 'returns 10' do
+      create_guesses_with_word(5, 'hello')
+      @game.guess_no = 7
+      @game.calc_score(@player)
+      expect(@player.score).to eq(10)
+    end
+
+    private
+
+    def create_guesses_with_word(num, word)
+      guesses = []
+      i = 0
+      num.times do
+        guesses << create(:guess, game_id: @game.id, value: word[i], row: 7, result: 'match')
+        i += 1
+      end
+
+      guesses
+    end
+  end
 end
