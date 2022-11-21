@@ -31,18 +31,6 @@ RSpec.describe Game, type: :model do
         third_word_guess = create_guesses(5)
         expect(@game.last_guess).to eq(third_word_guess)
       end
-
-      private
-
-      def create_guesses(num)
-        guesses = []
-
-        num.times do
-          guesses << create(:guess, game_id: @game.id)
-        end
-
-        guesses
-      end
     end
   end
 
@@ -68,48 +56,8 @@ RSpec.describe Game, type: :model do
         second_word_guess = create_guesses_with_word(5, 'world')
         expect(@game.last_guess_string(second_word_guess)).to eq('world')
       end
-
-      private
-
-      def create_guesses_with_word(num, word)
-        guesses = []
-        i = 0
-        num.times do
-          guesses << create(:guess, game_id: @game.id, value: word[i])
-          i += 1
-        end
-
-        guesses
-      end
     end
   end
-
-  # describe '#clear_last_guess' do
-  #   before(:each) do
-  #     @game = create(:game)
-  #   end
-
-  #   context 'when there is one word guess' do
-  #     it 'return empty values' do
-  #       first_word_guess = create_guesses_with_word(5, 'hello')
-  #       @game.clear_last_guess
-  #       expect(@game.last_guess_string(first_word_guess)).to eq('')
-  #     end
-  #   end
-
-  #   private
-
-  #   def create_guesses_with_word(num, word)
-  #     guesses = []
-  #     i = 0
-  #     num.times do
-  #       guesses << create(:guess, game_id: @game.id, value: word[i])
-  #       i += 1
-  #     end
-
-  #     guesses
-  #   end
-  # end
 
   describe '#check_letter' do
     context 'when letter matches' do
@@ -215,20 +163,6 @@ RSpec.describe Game, type: :model do
         expect(@game.prev_guess_count('l', 1)).to eq(2)
       end
     end
-
-    private
-
-    def create_guesses_with_word(num, word)
-      guesses = []
-      i = 0
-
-      num.times do
-        guesses << create(:guess, game_id: @game.id, value: word[i], row: 1, col: i)
-        i += 1
-      end
-
-      guesses
-    end
   end
 
   describe '#check_exact_match?' do
@@ -284,50 +218,22 @@ RSpec.describe Game, type: :model do
           expect(@game.check_partial_match('p', 1)).to eq('occurs')
         end
       end
-
-      private
-
-      def create_guesses_with_word(num, word)
-        guesses = []
-        i = 0
-
-        num.times do
-          guesses << create(:guess, game_id: @game.id, value: word[i], row: 1, col: i)
-          i += 1
-        end
-
-        guesses
-      end
     end
   end
 
   describe '#win?' do
     context 'when game is not won' do
       it 'returns false' do
-        create_guesses_with_word(5, 'hello', 'miss')
+        create_guesses_with_result(5, 'hello', 'miss')
         expect(@game.win?).to eq(false)
       end
     end
 
     context 'when game is won' do
       it 'returns true' do
-        create_guesses_with_word(5, 'hello', 'match')
+        create_guesses_with_result(5, 'hello', 'match')
         expect(@game.win?).to eq(true)
       end
-    end
-
-    private
-
-    def create_guesses_with_word(num, word, result)
-      guesses = []
-      i = 0
-
-      num.times do
-        guesses << create(:guess, game_id: @game.id, value: word[i], row: 1, col: i, result: result)
-        i += 1
-      end
-
-      guesses
     end
   end
 
@@ -497,7 +403,7 @@ RSpec.describe Game, type: :model do
     end
 
     it 'returns 10' do
-      create_guesses_with_word(5, 'hello')
+      create_guesses_with_result(5, 'hello', 'match')
       @game.guess_no = 7
       @game.calc_score(@player)
       expect(@player.score).to eq(10)
@@ -515,5 +421,42 @@ RSpec.describe Game, type: :model do
 
       guesses
     end
+  end
+
+  # Test Helper methods
+  private
+
+  def create_guesses(num)
+    guesses = []
+
+    num.times do
+      guesses << create(:guess, game_id: @game.id)
+    end
+
+    guesses
+  end
+
+  def create_guesses_with_word(num, word)
+    guesses = []
+    i = 0
+
+    num.times do
+      guesses << create(:guess, game_id: @game.id, value: word[i], row: 1, col: i)
+      i += 1
+    end
+
+    guesses
+  end
+
+  def create_guesses_with_result(num, word, result)
+    guesses = []
+    i = 0
+
+    num.times do
+      guesses << create(:guess, game_id: @game.id, value: word[i], row: 1, col: i, result: result)
+      i += 1
+    end
+
+    guesses
   end
 end
